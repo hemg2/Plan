@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     private var list = [ListModel]()
     private var tableView: UITableView = {
        let tableView = UITableView()
@@ -18,18 +18,13 @@ class ListViewController: UIViewController, UIImagePickerControllerDelegate & UI
         button.tintColor = .black
         return button
     }()
-    lazy var naviButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title:nil, style: .plain, target: self, action: #selector(cameraVC))
-        button.image = UIImage(systemName: "camera")
-        button.tintColor = .black
-        return button
-    }()
+ 
    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        self.navigationItem.rightBarButtonItems = [navButton, naviButton]
+        self.navigationItem.rightBarButtonItem = navButton
         tableViewLayout()
         tableViewExtension()
         title = "예시"
@@ -38,7 +33,7 @@ class ListViewController: UIViewController, UIImagePickerControllerDelegate & UI
     private func tableViewLayout() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
 //        tableView.estimatedRowHeight = UITableView.automaticDimension
 //        tableView.rowHeight = UITableView.automaticDimension
         tableView.rowHeight = 200
@@ -52,18 +47,12 @@ class ListViewController: UIViewController, UIImagePickerControllerDelegate & UI
         tableView.delegate = self
         tableView.dataSource = self
     }
+    
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    @objc func cameraVC(_ sender: UIBarButtonItem) {
-        let camera = UIImagePickerController()
-        camera.delegate = self
-        camera.sourceType = .camera
-        camera.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
-        camera.allowsEditing = false
-        self.present(camera, animated: true)
-    }
+    
 }
 
 
@@ -73,7 +62,7 @@ extension ListViewController: UITableViewDataSource {
         return 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
         cell.titleLabel.text = "타이틀라벨"
         cell.descriptionLabel.text = "디스크립션"
         return cell
