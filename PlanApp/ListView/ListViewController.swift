@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ListViewController.swift
 //  PlanApp
 //
 //  Created by 1 on 2023/01/23.
@@ -7,7 +7,8 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class ListViewController: UIViewController {
+    private var list = [ListModel]()
     private var tableView: UITableView = {
        let tableView = UITableView()
         return tableView
@@ -18,12 +19,17 @@ class FirstViewController: UIViewController {
         view.backgroundColor = .systemBackground
         tableViewLayout()
         tableViewExtension()
+        title = "예시"
     }
     
     
     func tableViewLayout() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(ListTableViewCell.self, forCellReuseIdentifier: "cell")
+//        tableView.estimatedRowHeight = UITableView.automaticDimension
+//        tableView.rowHeight = UITableView.automaticDimension
+        tableView.rowHeight = 100
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -38,18 +44,21 @@ class FirstViewController: UIViewController {
 
 
 
-extension FirstViewController: UITableViewDataSource {
+extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
-    }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListTableViewCell else { return UITableViewCell() }
+        cell.titleLabel.text = "타이틀라벨"
+        cell.descriptionLabel.text = "디스크립션"
+        return cell
+     }
     
     
 }
 
-extension FirstViewController: UITableViewDelegate {
+extension ListViewController: UITableViewDelegate {
     
 }
 
