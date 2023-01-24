@@ -15,6 +15,7 @@
 		63DE061B297E75BB007D885C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63DE0619297E75BB007D885C /* LaunchScreen.storyboard */; };
 		63DE0624297FB1CB007D885C /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE0623297FB1CB007D885C /* List.swift */; };
 		63DE0628297FB657007D885C /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE0627297FB657007D885C /* ListTableViewCell.swift */; };
+		63DE062F297FD469007D885C /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE062E297FD469007D885C /* RecordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		63DE061C297E75BB007D885C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63DE0623297FB1CB007D885C /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		63DE0627297FB657007D885C /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		63DE062E297FD469007D885C /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +62,8 @@
 		63DE060D297E75B9007D885C /* PlanApp */ = {
 			isa = PBXGroup;
 			children = (
-				63DE0625297FB601007D885C /* ListView */,
 				63DE0622297FB1BF007D885C /* Model */,
+				63DE0625297FB601007D885C /* ListView */,
 				63DE060E297E75B9007D885C /* AppDelegate.swift */,
 				63DE0610297E75B9007D885C /* SceneDelegate.swift */,
 				63DE0614297E75B9007D885C /* Main.storyboard */,
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				63DE0612297E75B9007D885C /* ListViewController.swift */,
+				63DE062E297FD469007D885C /* RecordViewController.swift */,
 				63DE0626297FB61F007D885C /* Cell */,
 			);
 			path = ListView;
@@ -171,6 +174,7 @@
 				63DE0613297E75B9007D885C /* ListViewController.swift in Sources */,
 				63DE060F297E75B9007D885C /* AppDelegate.swift in Sources */,
 				63DE0611297E75B9007D885C /* SceneDelegate.swift in Sources */,
+				63DE062F297FD469007D885C /* RecordViewController.swift in Sources */,
 				63DE0624297FB1CB007D885C /* List.swift in Sources */,
 				63DE0628297FB657007D885C /* ListTableViewCell.swift in Sources */,
 			);

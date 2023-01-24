@@ -49,18 +49,24 @@ class ListTableViewCell: UITableViewCell {
         
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
+        titleLabel.topAnchor.constraint(equalTo:topAnchor, constant: 10).isActive = true
 //        titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+//        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
 
 
         contentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 15).isActive = true
+        descriptionLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 10).isActive = true
         descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
         descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant:  -10).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        
+        contentView.addSubview(timeLabel)
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
+        timeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        timeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
     }
     
 }
