@@ -15,13 +15,21 @@ class ListViewController: UIViewController {
     }()
     lazy var navButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "기록하기", style: .plain, target: self, action: #selector(recordVC))
+        button.tintColor = .black
         return button
     }()
+    lazy var naviButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title:nil, style: .plain, target: self, action: #selector(cameraVC))
+        button.image = UIImage(systemName: "camera")
+        button.tintColor = .black
+        return button
+    }()
+   
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        self.navigationItem.rightBarButtonItem = navButton
+        self.navigationItem.rightBarButtonItems = [navButton, naviButton]
         tableViewLayout()
         tableViewExtension()
         title = "예시"
@@ -45,6 +53,10 @@ class ListViewController: UIViewController {
         tableView.dataSource = self
     }
     @objc func recordVC(_ sender: UIBarButtonItem) {
+        let vc = RecordViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func cameraVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }

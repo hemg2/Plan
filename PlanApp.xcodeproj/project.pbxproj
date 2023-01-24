@@ -15,6 +15,7 @@
 		63DE0624297FB1CB007D885C /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE0623297FB1CB007D885C /* List.swift */; };
 		63DE0628297FB657007D885C /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE0627297FB657007D885C /* ListTableViewCell.swift */; };
 		63DE062F297FD469007D885C /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE062E297FD469007D885C /* RecordViewController.swift */; };
+		63DE0632297FD92D007D885C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE0631297FD92D007D885C /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		63DE0623297FB1CB007D885C /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
 		63DE0627297FB657007D885C /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		63DE062E297FD469007D885C /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		63DE0631297FD92D007D885C /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				63DE0612297E75B9007D885C /* ListViewController.swift */,
 				63DE062E297FD469007D885C /* RecordViewController.swift */,
 				63DE0626297FB61F007D885C /* Cell */,
+				63DE0630297FD91C007D885C /* Camera */,
 			);
 			path = ListView;
 			sourceTree = "<group>";
@@ -95,6 +98,14 @@
 				63DE0627297FB657007D885C /* ListTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		63DE0630297FD91C007D885C /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				63DE0631297FD92D007D885C /* CameraView.swift */,
+			);
+			path = Camera;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63DE0613297E75B9007D885C /* ListViewController.swift in Sources */,
+				63DE0632297FD92D007D885C /* CameraView.swift in Sources */,
 				63DE060F297E75B9007D885C /* AppDelegate.swift in Sources */,
 				63DE0611297E75B9007D885C /* SceneDelegate.swift in Sources */,
 				63DE062F297FD469007D885C /* RecordViewController.swift in Sources */,
