@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController {
+class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     private var list = [ListModel]()
     private var tableView: UITableView = {
        let tableView = UITableView()
@@ -57,8 +57,12 @@ class ListViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func cameraVC(_ sender: UIBarButtonItem) {
-        let vc = RecordViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let camera = UIImagePickerController()
+        camera.delegate = self
+        camera.sourceType = .camera
+        camera.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+        camera.allowsEditing = false
+        self.present(camera, animated: true)
     }
 }
 
