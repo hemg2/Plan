@@ -9,7 +9,11 @@ import UIKit
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
    
-    private var list = [ListModel]()
+    private var list = [ListModel]() {
+        didSet {
+            self.saveList()
+        }
+    }
     private var tableView: UITableView = {
        let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -28,6 +32,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         navigationItem()
         tableViewLayout()
         tableViewExtension()
+        loadList()
     }
     
     private func navigationItem() {
@@ -54,6 +59,28 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.dataSource = self
     }
     
+    private func loadList() {
+        let userDefaults = UserDefaults.standard
+        guard let data = userDefaults.object(forKey: "list") as? [[String: Any]] else { return }
+        self.list = data.compactMap {
+            guard let title = $0["title"] as? String else { return nil }
+            guard let description = $0["description"] as? String else { return nil }
+            guard let mainImage = $0["mainImage"] as? UIImage else { return nil }
+            return ListModel(mainImage: mainImage, title: title, description: description)
+        }
+    }
+    private func saveList() {
+        let date = self.list.map {
+            [
+                "title": $0.title,
+                "description": $0.description,
+                "mainImage": $0.mainImage
+            ]
+        }
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(date, forKey: "list")
+    }
+    
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
         self.navigationController?.pushViewController(vc, animated: true)
@@ -65,14 +92,15 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return list.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
         
-        
-        cell.titleLabel.text = "타이틀라벨"
-        cell.descriptionLabel.text = "디스크립션"
+        let lists = self.list[indexPath.row]
+        cell.titleLabel.text = lists.title
+        cell.descriptionLabel.text = lists.description
+        cell.mainImage.image = lists.mainImage
         cell.timeLabel.text = "시간"
         return cell
      }

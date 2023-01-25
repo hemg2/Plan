@@ -8,11 +8,19 @@
 import UIKit
 import Photos
 
+indirect enum ListModes {
+    case new
+    case edit(IndexPath, ListModel)
+}
+protocol ListModeDelegate: AnyObject {
+    func didSelectList(listMode: ListModel)
+}
 
 final class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private let imagePickerController = UIImagePickerController()
-    
+    var listMode: ListModes = .new
+    var delegate: ListModeDelegate?
     lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .darkGray
@@ -48,7 +56,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
         return label
     }()
     
-    lazy var textField: UITextField = {
+    lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.frame = CGRect(x: 100, y: 100, width: 400, height: 30)
         textField.borderStyle = .roundedRect
@@ -56,7 +64,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
         return textField
     }()
     
-    lazy var textView: UITextField = {
+    lazy var descriptionTextField: UITextField = {
         let textField = UITextField()
         textField.frame = CGRect(x: 100, y: 100, width: 400, height: 30)
         textField.borderStyle = .roundedRect
@@ -84,56 +92,6 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
         layout()
         imageViews()
     }
-    
-    func navigations() {
-        view.backgroundColor = .systemBackground
-        title = "기록하기"
-        self.navigationItem.rightBarButtonItems = [naviBarButton,naviButton]
-    }
-    
-    private func imageViews() {
-        view.addSubview(imageLabel)
-        imageLabel.translatesAutoresizingMaskIntoConstraints = false
-        imageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        imageLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        
-        view.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: imageLabel.bottomAnchor, constant: 15).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        
-        view.addSubview(imageButton)
-        imageButton.translatesAutoresizingMaskIntoConstraints = false
-        imageButton.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
-        imageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        imageButton.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        imageButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
-    }
-    
-    private func layout() {
-        view.addSubview(titleLabel)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 250).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        
-        view.addSubview(textField)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
-        textField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        
-        view.addSubview(subTitleLabel)
-        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subTitleLabel.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 30).isActive = true
-        subTitleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        
-        view.addSubview(textView)
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 10).isActive = true
-        textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        
-    }
 }
 
 
@@ -155,44 +113,32 @@ extension RecordViewController {
     }
     //추가하기
     @objc private func add() {
-        let vc = ListViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = ListViewController()
+        guard let title = self.titleTextField.text else { return }
+        guard let description = self.descriptionTextField.text else { return }
+        guard let mainImage = self.imageView.image else { return }
+        let list = ListModel(mainImage: mainImage, title: title, description: description)
+        
+        switch self.listMode {
+        case .new:
+            self.delegate?.didSelectList(listMode: list)
+        case let .edit(indexpath, _):
+            NotificationCenter.default.post(name: NSNotification.Name("list"),
+                                            object: list,
+                                            userInfo: [
+                                                "indexPath.row": indexpath.row
+                                            ])
+            
+        }
+        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
-    // 사진 저장
+    // 사진 저장1
     @objc func savedImage(image: UIImage, didFinishSavingWithError: Error?, error: Error?, contextInfo: UnsafeMutableRawPointer?) {
         if let error = error {
             print(error)
             return
         }
         print("success사진")
-    }
-}
-
-
-extension RecordViewController {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.imageView.image = image
-        }
-        // 사진저장
-        if let images = info[.originalImage] as? UIImage {
-            UIImageWriteToSavedPhotosAlbum(images, self, #selector(savedImage), nil)
-        }
-      
-        
-        // 동영상 저장 코드 181번까지
-        if let url = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) {
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-            }, completionHandler: { (success, error) in
-                if success {
-                    print("success동영상")
-                } else if let error = error {
-                    print(error)
-                }
-            })
-        }
-        picker.dismiss(animated: true)
-        dismiss(animated: true, completion: nil)
     }
 }
