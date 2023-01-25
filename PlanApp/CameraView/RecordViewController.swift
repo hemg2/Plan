@@ -14,7 +14,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     
     lazy var imageView: UIImageView = {
         let image = UIImageView()
-        image.backgroundColor = .systemBackground
+        image.backgroundColor = .darkGray
         return image
     }()
     
@@ -28,7 +28,8 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     lazy var imageButton: UIButton = {
         let button = UIButton()
         button.setTitle(nil, for: .normal)
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
+//        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.addTarget(self, action: #selector(keepPhoto), for: .touchUpInside)
         return button
     }()
     
@@ -70,13 +71,14 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     }()
     
     lazy var naviBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title:"사진첩", style: .plain, target: self, action: #selector(keepPhoto))
+        let button = UIBarButtonItem(title:"추가하기", style: .plain, target: self, action: #selector(add))
         button.tintColor = .black
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePickerController.delegate = self
         navigations()
         layout()
         imageViews()
@@ -85,10 +87,10 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     func navigations() {
         view.backgroundColor = .systemBackground
         title = "기록하기"
-        self.navigationItem.rightBarButtonItems = [naviButton, naviBarButton]
+        self.navigationItem.rightBarButtonItems = [naviBarButton,naviButton]
     }
     
-    func imageViews() {
+    private func imageViews() {
         view.addSubview(imageLabel)
         imageLabel.translatesAutoresizingMaskIntoConstraints = false
         imageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
@@ -109,7 +111,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
         imageButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
-    func layout() {
+    private func layout() {
         view.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 250).isActive = true
@@ -136,7 +138,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
 
 
 extension RecordViewController {
-    @objc func cameraVC(_ sender: UIBarButtonItem) {
+    @objc func cameraVC(_ sender: UIBarButtonItem) {  //사진
         let camera = UIImagePickerController()
         camera.delegate = self
         camera.sourceType = .camera
@@ -149,5 +151,20 @@ extension RecordViewController {
     @objc private func keepPhoto() {
         imagePickerController.sourceType = .photoLibrary
         self.present(imagePickerController, animated: true)
+    }
+    //추가하기
+    @objc private func add() {
+        let vc = ListViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+
+extension RecordViewController {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.imageView.image = image
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
