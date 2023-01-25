@@ -33,6 +33,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableViewLayout()
         tableViewExtension()
         loadList()
+        NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("list"), object: nil)
     }
     
     private func navigationItem() {
@@ -84,6 +85,14 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func editDiaryNotification(_ notification: Notification) {
+        guard let title = notification.object as? ListModel else { return }
+        guard let description = notification.userInfo?["indexPath.row"] as? Int else { return }
+        self.list[description] = title
+       
+        self.tableView.reloadData()
     }
     
 }
