@@ -47,8 +47,8 @@ class ListCell: UITableViewCell {
         mainImage.translatesAutoresizingMaskIntoConstraints = false
         mainImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        mainImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        mainImage.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        mainImage.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        mainImage.widthAnchor.constraint(equalToConstant: 370).isActive = true
         
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -69,8 +69,8 @@ class ListCell: UITableViewCell {
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
         timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -20).isActive = true
-        timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+//        timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -20).isActive = true
+        timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
     }
     
 }

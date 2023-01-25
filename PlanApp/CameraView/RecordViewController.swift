@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 
 final class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -165,6 +166,18 @@ extension RecordViewController {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.imageView.image = image
         }
+        if let url = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) {
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+            }, completionHandler: { (success, error) in
+                if success {
+                    print("success")
+                } else if let error = error {
+                    print(error)
+                }
+            })
+        }
+        picker.dismiss(animated: true)
         dismiss(animated: true, completion: nil)
     }
 }
