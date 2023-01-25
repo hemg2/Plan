@@ -36,7 +36,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
 //        tableView.estimatedRowHeight = UITableView.automaticDimension
 //        tableView.rowHeight = UITableView.automaticDimension
-        tableView.rowHeight = 200
+        tableView.rowHeight = 300
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -59,10 +59,12 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
+        
+        
         cell.titleLabel.text = "타이틀라벨"
         cell.descriptionLabel.text = "디스크립션"
         return cell

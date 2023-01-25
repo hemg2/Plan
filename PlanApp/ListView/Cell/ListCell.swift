@@ -9,23 +9,24 @@ import UIKit
 
 class ListCell: UITableViewCell {
     
-    var titleLabel: UILabel = {
+    lazy var mainImage: UIImageView = {
+        let image = UIImageView()
+        image.backgroundColor = .green
+        return image
+    }()
+    
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 30)
         return label
     }()
-    var descriptionLabel : UILabel = {
+    lazy var descriptionLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
-    lazy var stackView: UIStackView = {
-        var stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
-        stackView.axis = .vertical
-        stackView.spacing = 10
-        return stackView
-    }()
-    var timeLabel :UILabel =  {
+   
+    lazy var timeLabel :UILabel =  {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20)
         return label
@@ -42,14 +43,16 @@ class ListCell: UITableViewCell {
     }
     
     func configure() {
-//        contentView.addSubview(stackView)
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-//        stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        contentView.addSubview(mainImage)
+        mainImage.translatesAutoresizingMaskIntoConstraints = false
+        mainImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+        mainImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5).isActive = true
+        mainImage.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        mainImage.widthAnchor.constraint(equalToConstant: 70).isActive = true
         
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo:topAnchor, constant: 10).isActive = true
+        titleLabel.topAnchor.constraint(equalTo:mainImage.bottomAnchor, constant: 10).isActive = true
 //        titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
 //        titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
@@ -58,14 +61,15 @@ class ListCell: UITableViewCell {
         contentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 10).isActive = true
-        descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
-        descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant:  -10).isActive = true
+//        descriptionLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+//        descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant:  -10).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         
         contentView.addSubview(timeLabel)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
-        timeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        timeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
+        timeLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant:  -20).isActive = true
         timeLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
     }
     
