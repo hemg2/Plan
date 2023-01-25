@@ -6,28 +6,11 @@
 //
 
 import UIKit
-import MobileCoreServices
-
-enum VideoHelper {
-    static func startMediaBrowser(
-        delegate: UIViewController & UINavigationControllerDelegate & UIImagePickerControllerDelegate,
-        sourceType: UIImagePickerController.SourceType
-    ) {
-        guard UIImagePickerController.isSourceTypeAvailable(sourceType)
-        else { return }
-        
-        let mediaUI = UIImagePickerController()
-        mediaUI.sourceType = sourceType
-        mediaUI.mediaTypes = [kUTTypeMovie as String]
-        mediaUI.allowsEditing = true
-        mediaUI.delegate = delegate
-        delegate.present(mediaUI, animated: true, completion: nil)
-    }
-}
 
 
 final class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    private let imagePickerController = UIImagePickerController()
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 35)
@@ -117,6 +100,24 @@ extension RecordViewController {
     
     // 사진첩
     @objc private func keepPhoto() {
-        VideoHelper.startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
+        //enum VideoHelper {
+        //    static func startMediaBrowser(
+        //        delegate: UIViewController & UINavigationControllerDelegate & UIImagePickerControllerDelegate,
+        //        sourceType: UIImagePickerController.SourceType
+        //    ) {
+        //        guard UIImagePickerController.isSourceTypeAvailable(sourceType)
+        //        else { return }
+        //
+        //        let mediaUI = UIImagePickerController()
+        //        mediaUI.sourceType = sourceType
+        //        mediaUI.mediaTypes = [kUTTypeMovie as String]
+        //        mediaUI.allowsEditing = true
+        //        mediaUI.delegate = delegate
+        //        delegate.present(mediaUI, animated: true, completion: nil)
+        //    }
+        //}
+        //        VideoHelper.startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum) 영상 불러오기
+        imagePickerController.sourceType = .photoLibrary
+        self.present(imagePickerController, animated: true)
     }
 }
