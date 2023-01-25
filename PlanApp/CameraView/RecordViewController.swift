@@ -158,6 +158,14 @@ extension RecordViewController {
         let vc = ListViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    // 사진 저장
+    @objc func savedImage(image: UIImage, didFinishSavingWithError: Error?, error: Error?, contextInfo: UnsafeMutableRawPointer?) {
+        if let error = error {
+            print(error)
+            return
+        }
+        print("success사진")
+    }
 }
 
 
@@ -166,12 +174,19 @@ extension RecordViewController {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.imageView.image = image
         }
+        // 사진저장
+        if let images = info[.originalImage] as? UIImage {
+            UIImageWriteToSavedPhotosAlbum(images, self, #selector(savedImage), nil)
+        }
+      
+        
+        // 동영상 저장 코드 181번까지
         if let url = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) {
             PHPhotoLibrary.shared().performChanges({
                 PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
             }, completionHandler: { (success, error) in
                 if success {
-                    print("success")
+                    print("success동영상")
                 } else if let error = error {
                     print(error)
                 }
