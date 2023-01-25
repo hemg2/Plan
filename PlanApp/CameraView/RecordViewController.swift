@@ -147,23 +147,6 @@ extension RecordViewController {
     
     // 사진첩
     @objc private func keepPhoto() {
-        //enum VideoHelper {
-        //    static func startMediaBrowser(
-        //        delegate: UIViewController & UINavigationControllerDelegate & UIImagePickerControllerDelegate,
-        //        sourceType: UIImagePickerController.SourceType
-        //    ) {
-        //        guard UIImagePickerController.isSourceTypeAvailable(sourceType)
-        //        else { return }
-        //
-        //        let mediaUI = UIImagePickerController()
-        //        mediaUI.sourceType = sourceType
-        //        mediaUI.mediaTypes = [kUTTypeMovie as String]
-        //        mediaUI.allowsEditing = true
-        //        mediaUI.delegate = delegate
-        //        delegate.present(mediaUI, animated: true, completion: nil)
-        //    }
-        //}
-        //        VideoHelper.startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum) 영상 불러오기
         imagePickerController.sourceType = .photoLibrary
         self.present(imagePickerController, animated: true)
     }
