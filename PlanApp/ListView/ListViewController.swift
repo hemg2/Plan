@@ -8,9 +8,11 @@
 import UIKit
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+   
     private var list = [ListModel]()
     private var tableView: UITableView = {
        let tableView = UITableView()
+        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     lazy var navButton: UIBarButtonItem = {
@@ -23,11 +25,15 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        self.navigationItem.rightBarButtonItem = navButton
+        navigationItem()
         tableViewLayout()
         tableViewExtension()
+    }
+    
+    private func navigationItem() {
+        view.backgroundColor = .systemBackground
         title = "예시"
+        self.navigationItem.rightBarButtonItem = navButton
     }
     
     private func tableViewLayout() {
@@ -36,7 +42,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
 //        tableView.estimatedRowHeight = UITableView.automaticDimension
 //        tableView.rowHeight = UITableView.automaticDimension
-        tableView.rowHeight = 300
+//        tableView.rowHeight = 200
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -67,6 +73,7 @@ extension ListViewController: UITableViewDataSource {
         
         cell.titleLabel.text = "타이틀라벨"
         cell.descriptionLabel.text = "디스크립션"
+        cell.timeLabel.text = "시간"
         return cell
      }
     
