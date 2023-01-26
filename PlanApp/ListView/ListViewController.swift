@@ -9,11 +9,12 @@ import UIKit
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
-    private var list = [ListModel]() {
-        didSet {
-            saveList()
-        }
-    }
+    private var list = [ListModel]()
+//    {
+//        didSet {
+//            saveList()
+//        }
+//    }
     
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -33,7 +34,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         navigationItem()
         tableViewLayout()
         tableViewExtension()
-        loadList()
+//        loadList()
     }
     
     private func navigationItem() {
@@ -58,6 +59,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
+    
     private func saveList() {
         let date = self.list.map {
             [
@@ -70,27 +72,16 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         userDefaults.set(date, forKey: "list")
     }
     
-    func loadList() {
-        let userDefaults = UserDefaults.standard
-        guard let data = userDefaults.object(forKey: "list") as? [[String: Any]]else { return }
-        self.list = data.compactMap {
-            guard let title = $0["title"] as? String else { return }
-            guard let description = $0["description"] as? String else { return }
-            guard let mainImage = $0["mainImage"] as? UIImage else { return }
-            let image = mainImage
-            if let data = image?.pngData() {
-                let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask) [0]
-                let url = documents.appendingPathComponent(image)
-                do {
-                    try data.write(to: url)
-                    userDefaults.set(url, forKey: "image")
-                } catch {
-                    
-                }
-            }
-            return ListModel(mainImage: image, title: title, description: description)
-        }
-    }
+//    func loadList() {
+//        let userDefaults = UserDefaults.standard
+//        guard let data = userDefaults.object(forKey: "list") as? [[String: Any]]else { return }
+//        self.list = data.compactMap {
+//            guard let title = $0["title"] as? String else { return }
+//            guard let description = $0["description"] as? String else { return }
+//            guard let mainImage = $0["mainImage"] as? UIImage else { return }
+//            return ListModel(mainImage: mainImage, title: title, description: description)
+//        }
+//    }
     
     
     @objc func recordVC(_ sender: UIBarButtonItem) {
