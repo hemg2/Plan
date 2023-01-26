@@ -10,7 +10,7 @@ import UIKit
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
    
     private var list = [List]()
-    let listController = RecordViewController()
+    var cells = ListCell()
     private var tableView: UITableView = {
        let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -58,21 +58,24 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
    
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
-        listController.delegate = self
-        self.tableView.reloadData()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "1"), object: nil, queue: nil)
+        { [weak self] notifiaction in
+            let cell = ListCell()
+            if let text = notifiaction.object as? String {
+                cell.titleLabel.text = text
+                cell.descriptionLabel.text = text
+            }
+            if let image = notifiaction.object as? UIImage {
+                cell.mainImage.image = image
+            }
+        }
+
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-
-
 }
-extension ListViewController: ListModeDelegate {
-    func didSelectList(listMode: List) {
-//        listController.delegate = self
-        self.list.append(listMode)
-        self.tableView.reloadData()
-    }
-}
+
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,10 +83,8 @@ extension ListViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
-        
+      
         let lists = self.list[indexPath.row]
-        let test = ListViewController()
-        test.listController.delegate = self
         cell.titleLabel.text = lists.title
         cell.descriptionLabel.text = lists.description
         cell.mainImage.image = lists.mainImage

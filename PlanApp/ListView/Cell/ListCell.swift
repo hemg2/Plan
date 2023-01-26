@@ -8,7 +8,6 @@
 import UIKit
 
 class ListCell: UITableViewCell {
-    
     lazy var mainImage: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .green
@@ -40,6 +39,21 @@ class ListCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         configure()
+        notificationCenters()
+    }
+    
+    func notificationCenters() {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("1"), object: nil, queue: nil)
+        { [weak self] notification in
+            if let text = notification.object as? String {
+                self?.titleLabel.text = text
+                self?.descriptionLabel.text = text
+            }
+            if let image = notification.object as? UIImage {
+                self?.mainImage.image = image
+            }
+            
+        }
     }
     
     private func configure() {
@@ -72,5 +86,7 @@ class ListCell: UITableViewCell {
 //        timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -20).isActive = true
         timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
     }
+    
+    
     
 }

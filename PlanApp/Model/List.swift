@@ -9,7 +9,7 @@ import UIKit
 
 
 struct List {
-    let mainImage: UIImage?
-    let title: String?
-    let description: String?
+    let mainImage: UIImage
+    let title: String
+    let description: String
 }

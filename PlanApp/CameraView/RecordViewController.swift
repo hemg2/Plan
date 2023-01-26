@@ -9,14 +9,10 @@ import UIKit
 import Photos
 
 
-protocol ListModeDelegate: AnyObject {
-    func didSelectList(listMode: List)
-}
-
-final class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private let imagePickerController = UIImagePickerController()
-    weak var delegate: ListModeDelegate?
+    
     lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .darkGray
@@ -94,7 +90,6 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
 }
 
 
-
 extension RecordViewController {
     @objc func cameraVC(_ sender: UIBarButtonItem) {  //사진
         let camera = UIImagePickerController()
@@ -116,8 +111,12 @@ extension RecordViewController {
         guard let description = self.descriptionTextField.text else { return }
         guard let mainImage = self.imageView.image else { return }
         let list = List(mainImage: mainImage, title: title, description: description)
-        self.delegate?.didSelectList(listMode: list)
+        NotificationCenter.default.post(name: NSNotification.Name("1"), object: self.titleTextField.text)
+        NotificationCenter.default.post(name: NSNotification.Name("1"), object: self.descriptionTextField.text)
+        NotificationCenter.default.post(name: NSNotification.Name("1"), object: self.imageView.image)
+        NotificationCenter.default.post(name: NSNotification.Name("1"), object: list)
         self.navigationController?.popViewController(animated: true)
+
     }
     // 사진 저장1
     @objc func savedImage(image: UIImage, didFinishSavingWithError: Error?, error: Error?, contextInfo: UnsafeMutableRawPointer?) {
