@@ -8,19 +8,15 @@
 import UIKit
 import Photos
 
-enum ListModes {
-    case new
-    case edit(IndexPath, ListModel)
-}
+
 protocol ListModeDelegate: AnyObject {
-    func didSelectList(listMode: ListModel)
+    func didSelectList(listMode: List)
 }
 
 final class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private let imagePickerController = UIImagePickerController()
-    var listMode: ListModes = .new
-    var delegate: ListModeDelegate?
+    weak var delegate: ListModeDelegate?
     lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .darkGray
@@ -91,21 +87,10 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
         navigations()
         layout()
         imageViews()
-        configureEditMode()
     }
     
     
-    private func configureEditMode() {
-        switch self.listMode {
-        case let .edit(_, list):
-            self.titleTextField.text = list.title
-            self.descriptionTextField.text = list.description
-            //            self.imageView.image = list.mainImage
-            
-        default:
-            break
-        }
-    }
+   
 }
 
 
@@ -127,25 +112,12 @@ extension RecordViewController {
     }
     //추가하기
     @objc private func add() {
-        //        let vc = ListViewController()
         guard let title = self.titleTextField.text else { return }
         guard let description = self.descriptionTextField.text else { return }
         guard let mainImage = self.imageView.image else { return }
-        let list = ListModel(mainImage: mainImage, title: title, description: description)
-        
-        switch self.listMode {
-        case .new:
-            self.delegate?.didSelectList(listMode: list)
-        case let .edit(indexpath, _):
-            NotificationCenter.default.post(name: NSNotification.Name("list"),
-                                            object: list,
-                                            userInfo: [
-                                                "indexPath.row": indexpath.row
-                                            ])
-            
-        }
+        let list = List(mainImage: mainImage, title: title, description: description)
+        self.delegate?.didSelectList(listMode: list)
         self.navigationController?.popViewController(animated: true)
-        //        self.navigationController?.pushViewController(vc, animated: true)
     }
     // 사진 저장1
     @objc func savedImage(image: UIImage, didFinishSavingWithError: Error?, error: Error?, contextInfo: UnsafeMutableRawPointer?) {

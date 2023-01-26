@@ -42,7 +42,7 @@ class ListCell: UITableViewCell {
         configure()
     }
     
-    func configure() {
+    private func configure() {
         contentView.addSubview(mainImage)
         mainImage.translatesAutoresizingMaskIntoConstraints = false
         mainImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true

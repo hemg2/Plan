@@ -9,11 +9,8 @@ import UIKit
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
    
-    private var list = [ListModel]() {
-        didSet {
-            self.saveList()
-        }
-    }
+    private var list = [List]()
+    let listController = RecordViewController()
     private var tableView: UITableView = {
        let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -32,8 +29,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         navigationItem()
         tableViewLayout()
         tableViewExtension()
-        loadList()
-        NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("list"), object: nil)
     }
     
     private func navigationItem() {
@@ -60,57 +55,39 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.dataSource = self
     }
     
-    private func loadList() {
-        let userDefaults = UserDefaults.standard
-        guard let data = userDefaults.object(forKey: "list") as? [[String: Any]] else { return }
-        self.list = data.compactMap {
-            guard let title = $0["title"] as? String else { return nil }
-            guard let description = $0["description"] as? String else { return nil }
-            guard let mainImage = $0["mainImage"] as? UIImage else { return nil }
-            return ListModel(mainImage: mainImage, title: title, description: description)
-        }
-    }
-    private func saveList() {
-        let date = self.list.map {
-            [
-                "title": $0.title,
-                "description": $0.description,
-                "mainImage": $0.mainImage
-            ]
-        }
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(date, forKey: "list")
-    }
-    
+   
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
+        listController.delegate = self
+        self.tableView.reloadData()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func editDiaryNotification(_ notification: Notification) {
-        guard let title = notification.object as? ListModel else { return }
-        guard let description = notification.userInfo?["indexPath.row"] as? Int else { return }
-        self.list[description] = title
-       
+
+
+}
+extension ListViewController: ListModeDelegate {
+    func didSelectList(listMode: List) {
+//        listController.delegate = self
+        self.list.append(listMode)
         self.tableView.reloadData()
     }
-    
 }
-
-
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        return self.list.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
         
         let lists = self.list[indexPath.row]
+        let test = ListViewController()
+        test.listController.delegate = self
         cell.titleLabel.text = lists.title
         cell.descriptionLabel.text = lists.description
         cell.mainImage.image = lists.mainImage
-        cell.timeLabel.text = "시간"
+//        cell.timeLabel.text = "시간"
         return cell
      }
     
