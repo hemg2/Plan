@@ -10,7 +10,6 @@ import UIKit
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
    
     private var list = [List]()
-    var cells = ListCell()
     private var tableView: UITableView = {
        let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -41,9 +40,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
-//        tableView.estimatedRowHeight = UITableView.automaticDimension
-//        tableView.rowHeight = UITableView.automaticDimension
-//        tableView.rowHeight = 200
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -58,21 +54,18 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
    
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "1"), object: nil, queue: nil)
-        { [weak self] notifiaction in
-            let cell = ListCell()
-            if let text = notifiaction.object as? String {
-                cell.titleLabel.text = text
-                cell.descriptionLabel.text = text
-            }
-            if let image = notifiaction.object as? UIImage {
-                cell.mainImage.image = image
-            }
-        }
-
+        vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+}
+
+extension ListViewController: ListViewDelegate {
+    func didSelctReigster(list: List) {
+        self.list.append(list)
+        self.tableView.reloadData()
+    }
+    
     
 }
 

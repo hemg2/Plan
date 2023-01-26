@@ -39,23 +39,9 @@ class ListCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         configure()
-        notificationCenters()
+
     }
-    
-    func notificationCenters() {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("1"), object: nil, queue: nil)
-        { [weak self] notification in
-            if let text = notification.object as? String {
-                self?.titleLabel.text = text
-                self?.descriptionLabel.text = text
-            }
-            if let image = notification.object as? UIImage {
-                self?.mainImage.image = image
-            }
-            
-        }
-    }
-    
+        
     private func configure() {
         contentView.addSubview(mainImage)
         mainImage.translatesAutoresizingMaskIntoConstraints = false
