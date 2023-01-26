@@ -17,6 +17,8 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     private let imagePickerController = UIImagePickerController()
     weak var delegate: ListViewDelegate?
+    private let datePicker = UIDatePicker()
+    private var listDate: Date?
     
     lazy var imageView: UIImageView = {
         let image = UIImageView()
@@ -48,8 +50,15 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     lazy var subTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         label.text = "내용"
+        return label
+    }()
+    
+    lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 25)
+        label.text = "날짜"
         return label
     }()
     
@@ -66,6 +75,14 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
         textField.frame = CGRect(x: 100, y: 100, width: 400, height: 30)
         textField.borderStyle = .roundedRect
         textField.placeholder = "내용을 입력해주세요."
+        return textField
+    }()
+    
+    
+    lazy var dateTextField: UITextField = {
+        let textField = UITextField()
+        textField.frame = CGRect(x: 100, y: 100, width: 400, height: 30)
+        textField.borderStyle = .roundedRect
         return textField
     }()
     
@@ -88,9 +105,38 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
         navigations()
         layout()
         imageViews()
+        dateLayout()
+        configureDatePicker()
     }
     
+    private func configureDatePicker() {
+        self.datePicker.datePickerMode = .date
+        self.datePicker.preferredDatePickerStyle = .wheels
+        self.datePicker.addTarget(self, action: #selector(datePickerValueDidChange(_:)), for: .valueChanged)
+        self.dateTextField.inputView = self.datePicker
+        self.datePicker.locale = Locale(identifier: "ko_KR")
+    }
     
+    @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
+     let formmater = DateFormatter()
+        formmater.dateFormat = "yyyy년 MM월 dd일(EEEEE)"
+        formmater.locale = Locale(identifier: "ko_KR")
+        self.listDate = datePicker.date
+        self.dateTextField.text = formmater.string(from: datePicker.date)
+        self.dateTextField.sendActions(for: .editingChanged)
+    }
+    
+    private func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy년 MM월 dd일(EEEEE)"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter.string(from: date)
+    }
+    
+    //이 메소드가 빈화면 눌렀을때 키보드나 데이트 피커를 사라지게해줌
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
    
 }
 
@@ -115,7 +161,8 @@ extension RecordViewController {
         guard let title = self.titleTextField.text else { return }
         guard let description = self.descriptionTextField.text else { return }
         guard let mainImage = self.imageView.image else { return }
-        let list = ListModel(mainImage: mainImage, title: title, description: description)
+        guard let date = self.listDate else { return }
+        let list = ListModel(mainImage: mainImage, title: title, description: description, date: date)
         self.delegate?.didSelctReigster(list: list)
         self.navigationController?.popViewController(animated: true)
 

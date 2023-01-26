@@ -58,6 +58,12 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.dataSource = self
     }
     
+    private func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy년 MM월 dd일(EEEEE)"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter.string(from: date)
+    }
     
     
     private func saveList() {
@@ -113,7 +119,7 @@ extension ListViewController: UITableViewDataSource {
         cell.titleLabel.text = lists.title
         cell.descriptionLabel.text = lists.description
         cell.mainImage.image = lists.mainImage
-        //        cell.timeLabel.text = "시간"
+        cell.timeLabel.text = self.dateToString(date: lists.date)
         return cell
     }
     

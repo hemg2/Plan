@@ -58,5 +58,18 @@ extension RecordViewController {
         descriptionTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
     }
     
+    func dateLayout() {
+        view.addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        dateLabel.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 30).isActive = true
+        dateLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        
+        view.addSubview(dateTextField)
+        dateTextField.translatesAutoresizingMaskIntoConstraints = false
+        dateTextField.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
+        dateTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+    }
+   
+    
    
 }
