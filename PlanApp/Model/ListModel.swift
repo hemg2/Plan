@@ -8,7 +8,7 @@
 import UIKit
 
 
-struct List {
+struct ListModel {
     let mainImage: UIImage
     let title: String
     let description: String

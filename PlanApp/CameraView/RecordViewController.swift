@@ -10,13 +10,14 @@ import Photos
 
 
 protocol ListViewDelegate: AnyObject {
-    func didSelctReigster(list: List)
+    func didSelctReigster(list: ListModel)
 }
 
 class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private let imagePickerController = UIImagePickerController()
     weak var delegate: ListViewDelegate?
+    
     lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.backgroundColor = .darkGray
@@ -114,7 +115,7 @@ extension RecordViewController {
         guard let title = self.titleTextField.text else { return }
         guard let description = self.descriptionTextField.text else { return }
         guard let mainImage = self.imageView.image else { return }
-        let list = List(mainImage: mainImage, title: title, description: description)
+        let list = ListModel(mainImage: mainImage, title: title, description: description)
         self.delegate?.didSelctReigster(list: list)
         self.navigationController?.popViewController(animated: true)
 

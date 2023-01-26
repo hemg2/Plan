@@ -8,10 +8,15 @@
 import UIKit
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-   
-    private var list = [List]()
+    
+    private var list = [ListModel]() {
+        didSet {
+            saveList()
+        }
+    }
+    
     private var tableView: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
@@ -20,14 +25,15 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         button.tintColor = .black
         return button
     }()
- 
-   
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem()
         tableViewLayout()
         tableViewExtension()
+        loadList()
     }
     
     private func navigationItem() {
@@ -51,7 +57,42 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.dataSource = self
     }
     
-   
+    
+    private func saveList() {
+        let date = self.list.map {
+            [
+                "title": $0.title,
+                "description": $0.description,
+                "mainImage": $0.mainImage
+            ]
+        }
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(date, forKey: "list")
+    }
+    
+    func loadList() {
+        let userDefaults = UserDefaults.standard
+        guard let data = userDefaults.object(forKey: "list") as? [[String: Any]]else { return }
+        self.list = data.compactMap {
+            guard let title = $0["title"] as? String else { return }
+            guard let description = $0["description"] as? String else { return }
+            guard let mainImage = $0["mainImage"] as? UIImage else { return }
+            let image = mainImage
+            if let data = image?.pngData() {
+                let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask) [0]
+                let url = documents.appendingPathComponent(image)
+                do {
+                    try data.write(to: url)
+                    userDefaults.set(url, forKey: "image")
+                } catch {
+                    
+                }
+            }
+            return ListModel(mainImage: image, title: title, description: description)
+        }
+    }
+    
+    
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
         vc.delegate = self
@@ -61,7 +102,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
 }
 
 extension ListViewController: ListViewDelegate {
-    func didSelctReigster(list: List) {
+    func didSelctReigster(list: ListModel) {
         self.list.append(list)
         self.tableView.reloadData()
     }
@@ -76,14 +117,14 @@ extension ListViewController: UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
-      
+        
         let lists = self.list[indexPath.row]
         cell.titleLabel.text = lists.title
         cell.descriptionLabel.text = lists.description
         cell.mainImage.image = lists.mainImage
-//        cell.timeLabel.text = "시간"
+        //        cell.timeLabel.text = "시간"
         return cell
-     }
+    }
     
     
 }
