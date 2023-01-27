@@ -66,7 +66,7 @@
 			children = (
 				63DE0622297FB1BF007D885C /* Model */,
 				63DE0625297FB601007D885C /* ListView */,
-				63DE063329800C0A007D885C /* CameraView */,
+				63DE063329800C0A007D885C /* RecordView */,
 				63DE060E297E75B9007D885C /* AppDelegate.swift */,
 				63DE0610297E75B9007D885C /* SceneDelegate.swift */,
 				63DE0617297E75BB007D885C /* Assets.xcassets */,
@@ -101,14 +101,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		63DE063329800C0A007D885C /* CameraView */ = {
+		63DE063329800C0A007D885C /* RecordView */ = {
 			isa = PBXGroup;
 			children = (
 				63DE062E297FD469007D885C /* RecordViewController.swift */,
 				63DE0637298161C9007D885C /* RecordViewController+Layout.swift */,
 				63DE06392981636D007D885C /* RecordViewController+ButtonAction.swift */,
 			);
-			path = CameraView;
+			path = RecordView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
