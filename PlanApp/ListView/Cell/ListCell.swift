@@ -21,13 +21,13 @@ class ListCell: UITableViewCell {
     }()
     lazy var descriptionLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
+        label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
    
     lazy var timeLabel :UILabel =  {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
+        label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
     
@@ -47,7 +47,7 @@ class ListCell: UITableViewCell {
         mainImage.translatesAutoresizingMaskIntoConstraints = false
         mainImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        mainImage.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        mainImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
         mainImage.widthAnchor.constraint(equalToConstant: 370).isActive = true
         
         contentView.addSubview(titleLabel)

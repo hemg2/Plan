@@ -43,7 +43,7 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont.systemFont(ofSize: 30)
         label.text = "제목"
         return label
     }()
@@ -57,14 +57,14 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 25)
+        label.font = UIFont.systemFont(ofSize: 30)
         label.text = "날짜"
         return label
     }()
     
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
-        textField.frame = CGRect(x: 100, y: 100, width: 400, height: 30)
+        textField.frame = CGRect(x: 100, y: 100, width: 400, height: 40)
         textField.borderStyle = .roundedRect
         textField.placeholder = "제목을 입력해주세요."
         return textField
@@ -72,7 +72,7 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     lazy var descriptionTextField: UITextField = {
         let textField = UITextField()
-        textField.frame = CGRect(x: 100, y: 100, width: 400, height: 30)
+        textField.frame = CGRect(x: 100, y: 100, width: 400, height: 40)
         textField.borderStyle = .roundedRect
         textField.placeholder = "내용을 입력해주세요."
         return textField
@@ -81,8 +81,9 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     lazy var dateTextField: UITextField = {
         let textField = UITextField()
-        textField.frame = CGRect(x: 100, y: 100, width: 400, height: 30)
+        textField.frame = CGRect(x: 100, y: 100, width: 400, height: 40)
         textField.borderStyle = .roundedRect
+        textField.placeholder = "날짜을 입력해주세요."
         return textField
     }()
     

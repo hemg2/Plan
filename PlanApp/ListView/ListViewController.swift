@@ -123,6 +123,21 @@ extension ListViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let actions1 = UIContextualAction(style: .normal, title: "삭제", handler: { [weak self] action, view, completionHaldler in completionHaldler(true)
+            let cell = self?.list.remove(at: indexPath.row)
+            tableView.reloadData()
+        })
+        actions1.backgroundColor = .systemRed
+        
+        let actions2 = UIContextualAction(style: .normal, title: "수정", handler: { [weak self] action, view, completionHaldler in completionHaldler(true)
+            
+        })
+        actions2.backgroundColor = .systemBlue
+        
+        return UISwipeActionsConfiguration(actions: [actions1, actions2])
+    }
+    
     
 }
 
