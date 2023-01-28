@@ -120,9 +120,16 @@ extension ListViewController: UITableViewDataSource {
         cell.descriptionLabel.text = lists.description
         cell.mainImage.image = lists.mainImage
         cell.timeLabel.text = self.dateToString(date: lists.date)
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
     
+   
+    
+    
+}
+
+extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let actions1 = UIContextualAction(style: .normal, title: "삭제", handler: { [weak self] action, view, completionHaldler in completionHaldler(true)
             let cell = self?.list.remove(at: indexPath.row)
@@ -137,11 +144,6 @@ extension ListViewController: UITableViewDataSource {
         
         return UISwipeActionsConfiguration(actions: [actions1, actions2])
     }
-    
-    
-}
-
-extension ListViewController: UITableViewDelegate {
     
 }
 

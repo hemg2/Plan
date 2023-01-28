@@ -69,7 +69,7 @@ class ListCell: UITableViewCell {
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 10).isActive = true
         timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -20).isActive = true
+        timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -25).isActive = true
 //        timeLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
     }
     
