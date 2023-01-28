@@ -101,6 +101,9 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
 extension ListViewController: ListViewDelegate {
     func didSelctReigster(list: ListModel) {
         self.list.append(list)
+        self.list = self.list.sorted(by: {
+            $0.date.compare($1.date) == .orderedDescending
+        })
         self.tableView.reloadData()
     }
     

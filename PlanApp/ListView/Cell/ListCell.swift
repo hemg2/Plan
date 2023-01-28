@@ -46,9 +46,10 @@ class ListCell: UITableViewCell {
         contentView.addSubview(mainImage)
         mainImage.translatesAutoresizingMaskIntoConstraints = false
         mainImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        mainImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
         mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-        mainImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        mainImage.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        mainImage.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        mainImage.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -67,9 +68,9 @@ class ListCell: UITableViewCell {
 
         contentView.addSubview(timeLabel)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLabel.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 10).isActive = true
+//        timeLabel.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 10).isActive = true
         timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -25).isActive = true
+        timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -10).isActive = true
 //        timeLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
     }
     
