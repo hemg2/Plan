@@ -66,17 +66,17 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
-    private func saveList() {
-        let date = self.list.map {
-            [
-                "title": $0.title,
-                "description": $0.description,
-                "mainImage": $0.mainImage
-            ]
-        }
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(date, forKey: "list")
-    }
+//    private func saveList() {
+//        let date = self.list.map {
+//            [
+//                "title": $0.title,
+//                "description": $0.description,
+//                "mainImage": $0.mainImage
+//            ]
+//        }
+//        let userDefaults = UserDefaults.standard
+//        userDefaults.set(date, forKey: "list")
+//    }
     
 //    func loadList() {
 //        let userDefaults = UserDefaults.standard
@@ -115,18 +115,33 @@ extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.list.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
-        
-        let lists = self.list[indexPath.row]
-        cell.titleLabel.text = lists.title
-        cell.descriptionLabel.text = lists.description
-        cell.mainImage.image = lists.mainImage
-        cell.timeLabel.text = self.dateToString(date: lists.date)
-        cell.accessoryType = .disclosureIndicator
-        return cell
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
+            
+            let lists = self.list[indexPath.row]
+            cell.titleLabel.text = lists.title
+            cell.descriptionLabel.text = lists.description
+            cell.mainImage.image = lists.mainImage
+            cell.timeLabel.text = self.dateToString(date: lists.date)
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        }
+        return UITableViewCell()
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0: return "목표 계획"
+        case 1: return "할일 기록"
+        default: return nil
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
    
     
     
