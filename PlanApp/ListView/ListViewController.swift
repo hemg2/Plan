@@ -8,7 +8,8 @@
 import UIKit
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    
+  
+    private var targetModel = [TagetModel]()
     private var list = [ListModel]()
 //    {
 //        didSet {
@@ -21,8 +22,14 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
-    lazy var navButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "기록하기", style: .plain, target: self, action: #selector(recordVC))
+    lazy var naviRecordButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "할일 등록", style: .plain, target: self, action: #selector(recordVC))
+        button.tintColor = .black
+        return button
+    }()
+    
+    lazy var tarGetButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "목표 등록", style: .plain, target: self, action: #selector(tarGetVC))
         button.tintColor = .black
         return button
     }()
@@ -40,7 +47,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     private func navigationItem() {
         view.backgroundColor = .systemBackground
         title = "예시"
-        self.navigationItem.rightBarButtonItem = navButton
+        self.navigationItem.rightBarButtonItems = [naviRecordButton, tarGetButton]
     }
     
     private func tableViewLayout() {
@@ -96,6 +103,12 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @objc func tarGetVC(_ sender: UIBarButtonItem) {
+        let vcs = TarGetViewController()
+        vcs.delegate = self
+        self.navigationController?.pushViewController(vcs, animated: true)
+    }
+    
 }
 
 extension ListViewController: ListViewDelegate {
@@ -106,9 +119,20 @@ extension ListViewController: ListViewDelegate {
         })
         self.tableView.reloadData()
     }
+}
+
+extension ListViewController: TarGetViewDelegate {
+    func didSelctReigsters(target: TagetModel) {
+        self.targetModel.append(target)
+        self.list = self.list.sorted(by: {
+            $0.date.compare($1.date) == .orderedDescending
+        })
+        self.tableView.reloadData()
+    }
     
     
 }
+
 
 
 extension ListViewController: UITableViewDataSource {
@@ -120,6 +144,17 @@ extension ListViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
             
+            let lists = self.list[indexPath.row]
+            cell.titleLabel.text = lists.title
+            cell.descriptionLabel.text = lists.description
+            cell.mainImage.image = lists.mainImage
+            cell.timeLabel.text = self.dateToString(date: lists.date)
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        }
+        else if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
+
             let lists = self.list[indexPath.row]
             cell.titleLabel.text = lists.title
             cell.descriptionLabel.text = lists.description

@@ -1,17 +1,17 @@
 //
-//  RecordViewController+Layout.swift
+//  TarGetViewController+Layout.swift
 //  PlanApp
 //
-//  Created by 1 on 2023/01/25.
+//  Created by 1 on 2023/01/29.
 //
 
 import UIKit
 
 
-extension RecordViewController {
+extension TarGetViewController {
     func navigations() {
         view.backgroundColor = .systemBackground
-        title = "할일 등록하기"
+        title = "목표 정하기"
         self.navigationItem.rightBarButtonItems = [naviBarButton,naviButton]
     }
     
@@ -73,3 +73,4 @@ extension RecordViewController {
     
    
 }
+

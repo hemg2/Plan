@@ -14,3 +14,11 @@ struct ListModel {
     let description: String
     let date: Date
 }
+
+
+struct TagetModel {
+    let mainImage: UIImage
+    let title: String
+    let description: String
+    let date: Date
+}
