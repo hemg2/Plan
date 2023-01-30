@@ -12,7 +12,7 @@ extension TarGetViewController {
     func navigations() {
         view.backgroundColor = .systemBackground
         title = "목표 정하기"
-        self.navigationItem.rightBarButtonItems = [naviBarButton,naviButton]
+        self.navigationItem.rightBarButtonItem = naviBarButton
     }
     
 //    func imageViews() {

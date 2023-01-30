@@ -23,7 +23,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         return tableView
     }()
     lazy var naviRecordButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "일기 기록", style: .plain, target: self, action: #selector(recordVC))
+        let button = UIBarButtonItem(title: "하루 기록", style: .plain, target: self, action: #selector(recordVC))
         button.tintColor = .black
         return button
     }()
@@ -73,28 +73,35 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
-//    private func saveList() {
-//        let date = self.list.map {
-//            [
-//                "title": $0.title,
-//                "description": $0.description,
-//                "mainImage": $0.mainImage
-//            ]
-//        }
-//        let userDefaults = UserDefaults.standard
-//        userDefaults.set(date, forKey: "list")
-//    }
+    private func saveList() {
+        let date = self.list.map {
+            [
+                "title": $0.title,
+                "description": $0.description,
+                "mainImage": $0.mainImage,
+                "date": $0.date
+            ]
+        }
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(date, forKey: "list")
+    }
     
 //    func loadList() {
 //        let userDefaults = UserDefaults.standard
-//        guard let data = userDefaults.object(forKey: "list") as? [[String: Any]]else { return }
+//        guard let data = userDefaults.object(forKey: "list") as? [[String: Any]] else { return }
 //        self.list = data.compactMap {
 //            guard let title = $0["title"] as? String else { return }
 //            guard let description = $0["description"] as? String else { return }
-//            guard let mainImage = $0["mainImage"] as? UIImage else { return }
-//            return ListModel(mainImage: mainImage, title: title, description: description)
+//            guard let mainImage = $0["mainImage"]as? UIImage else { return }
+//            guard let date = $0["date"] as? Date else { return }
+//            return ListModel(mainImage: mainImage, title: title, description: description, date: date)
 //        }
 //    }
+//    
+    func setUserDefaults(UIImage value: UIImage, _ key: String) {
+        let imageData = value.jpegData(compressionQuality: 1.0)
+        UserDefaults.standard.set(imageData, forKey: "mainImage")
+    }
     
     
     @objc func recordVC(_ sender: UIBarButtonItem) {
