@@ -54,6 +54,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
+//        tableView.register(TargetCell.self, forCellReuseIdentifier: "cell1")
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -97,7 +98,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
 //            return ListModel(mainImage: mainImage, title: title, description: description, date: date)
 //        }
 //    }
-//    
+    
     func setUserDefaults(UIImage value: UIImage, _ key: String) {
         let imageData = value.jpegData(compressionQuality: 1.0)
         UserDefaults.standard.set(imageData, forKey: "mainImage")

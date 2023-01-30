@@ -15,27 +15,6 @@ extension TarGetViewController {
         self.navigationItem.rightBarButtonItem = naviBarButton
     }
     
-//    func imageViews() {
-//        view.addSubview(imageLabel)
-//        imageLabel.translatesAutoresizingMaskIntoConstraints = false
-//        imageLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-//        imageLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-//
-//        view.addSubview(imageView)
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.topAnchor.constraint(equalTo: imageLabel.bottomAnchor, constant: 15).isActive = true
-//        imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-//        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-//        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-//
-//        view.addSubview(imageButton)
-//        imageButton.translatesAutoresizingMaskIntoConstraints = false
-//        imageButton.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
-//        imageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-//        imageButton.heightAnchor.constraint(equalToConstant: 150).isActive = true
-//        imageButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
-//    }
-    
     func layout() {
         view.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
