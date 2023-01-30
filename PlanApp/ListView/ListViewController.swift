@@ -23,7 +23,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         return tableView
     }()
     lazy var naviRecordButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "할일 등록", style: .plain, target: self, action: #selector(recordVC))
+        let button = UIBarButtonItem(title: "일기 기록", style: .plain, target: self, action: #selector(recordVC))
         button.tintColor = .black
         return button
     }()
@@ -124,7 +124,7 @@ extension ListViewController: ListViewDelegate {
 extension ListViewController: TarGetViewDelegate {
     func didSelctReigsters(target: TagetModel) {
         self.targetModel.append(target)
-        self.list = self.list.sorted(by: {
+        self.targetModel = self.targetModel.sorted(by: {
             $0.date.compare($1.date) == .orderedDescending
         })
         self.tableView.reloadData()
@@ -137,7 +137,12 @@ extension ListViewController: TarGetViewDelegate {
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.list.count
+//        if section == 0 {
+//            self.targetModel.count
+//        } else if section == 1 {
+//            self.list.count
+//        }
+        return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,7 +154,6 @@ extension ListViewController: UITableViewDataSource {
             cell.descriptionLabel.text = lists.description
             cell.mainImage.image = lists.mainImage
             cell.timeLabel.text = self.dateToString(date: lists.date)
-            cell.accessoryType = .disclosureIndicator
             return cell
         }
         else if indexPath.section == 1 {
@@ -169,7 +173,7 @@ extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0: return "목표 계획"
-        case 1: return "할일 기록"
+        case 1: return "일기 기록"
         default: return nil
         }
     }

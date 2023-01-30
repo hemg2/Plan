@@ -17,7 +17,6 @@ struct ListModel {
 
 
 struct TagetModel {
-    let mainImage: UIImage
     let title: String
     let description: String
     let date: Date

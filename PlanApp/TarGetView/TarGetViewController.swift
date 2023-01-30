@@ -104,7 +104,7 @@ class TarGetViewController: UIViewController, UIImagePickerControllerDelegate, U
         imagePickerController.delegate = self
         navigations()
         layout()
-        imageViews()
+//        imageViews()
         dateLayout()
         configureDatePicker()
     }
@@ -160,9 +160,8 @@ extension TarGetViewController {
     @objc private func add() {
         guard let title = self.titleTextField.text else { return }
         guard let description = self.descriptionTextField.text else { return }
-        guard let mainImage = self.imageView.image else { return }
         guard let date = self.listDate else { return }
-        let taget = TagetModel(mainImage: mainImage, title: title, description: description, date: date)
+        let taget = TagetModel(title: title, description: description, date: date)
         self.delegate?.didSelctReigsters(target: taget)
         self.navigationController?.popViewController(animated: true)
 
