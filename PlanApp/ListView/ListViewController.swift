@@ -46,7 +46,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     
     private func navigationItem() {
         view.backgroundColor = .systemBackground
-        title = "예시"
+        title = "기록"
         self.navigationItem.rightBarButtonItems = [naviRecordButton, tarGetButton]
     }
     
@@ -87,6 +87,18 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         userDefaults.set(date, forKey: "list")
     }
     
+    private func saveTarget() {
+        let date = self.targetModel.map {
+            [
+                "title": $0.title,
+                "description": $0.description,
+                "date": $0.date
+            ]
+        }
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(date, forKey: "target")
+    }
+    
 //    func loadList() {
 //        let userDefaults = UserDefaults.standard
 //        guard let data = userDefaults.object(forKey: "list") as? [[String: Any]] else { return }
@@ -102,6 +114,12 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     func setUserDefaults(UIImage value: UIImage, _ key: String) {
         let imageData = value.jpegData(compressionQuality: 1.0)
         UserDefaults.standard.set(imageData, forKey: "mainImage")
+    }
+    
+    func imageData() {
+        if let imageData = UserDefaults.standard.data(forKey: "mainImage"),
+           let image = UIImage(data: imageData) {
+        }
     }
     
     
@@ -162,33 +180,44 @@ extension ListViewController: UITableViewDataSource {
             cell.descriptionLabel.text = lists.description
             cell.mainImage.image = lists.mainImage
             cell.timeLabel.text = self.dateToString(date: lists.date)
-            return cell
-        }
-        else if indexPath.section == 1 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
-
-            let lists = self.list[indexPath.row]
-            cell.titleLabel.text = lists.title
-            cell.descriptionLabel.text = lists.description
-            cell.mainImage.image = lists.mainImage
-            cell.timeLabel.text = self.dateToString(date: lists.date)
             cell.accessoryType = .disclosureIndicator
             return cell
         }
+//        else if indexPath.section == 1 {
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
+//
+//            let lists = self.list[indexPath.row]
+//            cell.titleLabel.text = lists.title
+//            cell.descriptionLabel.text = lists.description
+//            cell.mainImage.image = lists.mainImage
+//            cell.timeLabel.text = self.dateToString(date: lists.date)
+//            cell.accessoryType = .disclosureIndicator
+//            return cell
+//        }
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = RecordDetailViewController()
+        let list = self.list[indexPath.row]
+        vc.list = list
+        vc.indexPath = indexPath
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0: return "목표 계획"
-        case 1: return "일기 기록"
+//        case 0: return "목표 계획"
+        case 0: return "일기 기록"
         default: return nil
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
+    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
    
     
     
@@ -209,6 +238,7 @@ extension ListViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [actions1, actions2])
     }
+    
     
 }
 

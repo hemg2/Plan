@@ -10,6 +10,7 @@
 		63C0C2842986BE9700335071 /* TarGetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2832986BE9700335071 /* TarGetViewController.swift */; };
 		63C0C2862986BEA400335071 /* TarGetViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2852986BEA400335071 /* TarGetViewController+Layout.swift */; };
 		63C0C2882987845400335071 /* TargetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2872987845400335071 /* TargetCell.swift */; };
+		63C0C28B2988E28300335071 /* RecordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C28A2988E28300335071 /* RecordDetailViewController.swift */; };
 		63DE060F297E75B9007D885C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE060E297E75B9007D885C /* AppDelegate.swift */; };
 		63DE0611297E75B9007D885C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE0610297E75B9007D885C /* SceneDelegate.swift */; };
 		63DE0613297E75B9007D885C /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE0612297E75B9007D885C /* ListViewController.swift */; };
@@ -26,6 +27,7 @@
 		63C0C2832986BE9700335071 /* TarGetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarGetViewController.swift; sourceTree = "<group>"; };
 		63C0C2852986BEA400335071 /* TarGetViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TarGetViewController+Layout.swift"; sourceTree = "<group>"; };
 		63C0C2872987845400335071 /* TargetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetCell.swift; sourceTree = "<group>"; };
+		63C0C28A2988E28300335071 /* RecordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewController.swift; sourceTree = "<group>"; };
 		63DE060B297E75B9007D885C /* PlanApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DE060E297E75B9007D885C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		63DE0610297E75B9007D885C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +62,14 @@
 			path = TarGetView;
 			sourceTree = "<group>";
 		};
+		63C0C2892988E20B00335071 /* RecordDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				63C0C28A2988E28300335071 /* RecordDetailViewController.swift */,
+			);
+			path = RecordDetailView;
+			sourceTree = "<group>";
+		};
 		63DE0602297E75B9007D885C = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +92,7 @@
 				63DE0622297FB1BF007D885C /* Model */,
 				63DE0625297FB601007D885C /* ListView */,
 				63DE063329800C0A007D885C /* RecordView */,
+				63C0C2892988E20B00335071 /* RecordDetailView */,
 				63C0C2822986BE5000335071 /* TarGetView */,
 				63DE060E297E75B9007D885C /* AppDelegate.swift */,
 				63DE0610297E75B9007D885C /* SceneDelegate.swift */,
@@ -198,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C0C28B2988E28300335071 /* RecordDetailViewController.swift in Sources */,
 				63C0C2842986BE9700335071 /* TarGetViewController.swift in Sources */,
 				63DE0613297E75B9007D885C /* ListViewController.swift in Sources */,
 				63DE0638298161C9007D885C /* RecordViewController+Layout.swift in Sources */,
