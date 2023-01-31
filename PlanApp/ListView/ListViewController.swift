@@ -41,7 +41,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         navigationItem()
         tableViewLayout()
         tableViewExtension()
-//        loadList()
+        
     }
     
     private func navigationItem() {

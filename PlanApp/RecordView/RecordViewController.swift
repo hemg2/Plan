@@ -180,6 +180,15 @@ extension RecordViewController {
         guard let mainImage = self.imageView.image else { return }
         guard let date = self.listDate else { return }
         let list = ListModel(mainImage: mainImage, title: title, description: description, date: date)
+        
+        switch self.listEditorMode {
+            
+        case .new:
+            self.delegate?.didSelctReigster(list: list)
+        case let .edit(indexPath, _):
+            NotificationCenter.default.post(name: NSNotification.Name("List"), object: list, userInfo: [
+                "indexPath.row": indexPath.row])
+        }
         self.delegate?.didSelctReigster(list: list)
         self.navigationController?.popViewController(animated: true)
 

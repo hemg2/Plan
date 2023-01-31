@@ -97,7 +97,15 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
         guard let indexPath = self.indexPath else { return }
         guard let list = self.list else { return }
         vc.listEditorMode = .edit(indexPath, list)
+        NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("List"), object: nil)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func editDiaryNotification(_ notification: Notification) {
+        guard let list = notification.object as? ListModel else { return }
+        guard let row = notification.userInfo?["indexPath.row"] as? Int else  { return }
+        self.list = list
+        self.configureView()
     }
     
     override func viewDidLoad() {
@@ -123,6 +131,10 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
         formatter.dateFormat = "yy년 MM월 dd일(EEEEE)"
         formatter.locale = Locale(identifier: "ko_KR")
         return formatter.string(from: date)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
 }
