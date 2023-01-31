@@ -41,7 +41,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         navigationItem()
         tableViewLayout()
         tableViewExtension()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("List"), object: nil)
     }
     
     private func navigationItem() {
@@ -111,16 +111,16 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
 //        }
 //    }
     
-    func setUserDefaults(UIImage value: UIImage, _ key: String) {
-        let imageData = value.jpegData(compressionQuality: 1.0)
-        UserDefaults.standard.set(imageData, forKey: "mainImage")
-    }
-    
-    func imageData() {
-        if let imageData = UserDefaults.standard.data(forKey: "mainImage"),
-           let image = UIImage(data: imageData) {
-        }
-    }
+//    func setUserDefaults(UIImage value: UIImage, _ key: String) {
+//        let imageData = value.jpegData(compressionQuality: 1.0)
+//        UserDefaults.standard.set(imageData, forKey: "mainImage")
+//    }
+//
+//    func imageData() {
+//        if let imageData = UserDefaults.standard.data(forKey: "mainImage"),
+//           let image = UIImage(data: imageData) {
+//        }
+//    }
     
     
     @objc func recordVC(_ sender: UIBarButtonItem) {
@@ -133,6 +133,16 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         let vcs = TarGetViewController()
         vcs.delegate = self
         self.navigationController?.pushViewController(vcs, animated: true)
+    }
+    
+    @objc func editDiaryNotification(_ notification: Notification) {
+        guard let list = notification.object as? ListModel else { return }
+        guard let row = notification.userInfo?["indexPath.row"] as? Int else { return }
+        self.list[row] = list
+        self.list = self.list.sorted(by:  {
+            $0.date.compare($1.date) == .orderedDescending
+        })
+        self.tableView.reloadData()
     }
     
 }
