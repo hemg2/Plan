@@ -11,7 +11,7 @@ import UIKit
 extension RecordViewController {
     func navigations() {
         view.backgroundColor = .systemBackground
-        title = "할일 등록하기"
+        title = "기록하기"
         self.navigationItem.rightBarButtonItems = [naviBarButton,naviButton]
     }
     

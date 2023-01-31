@@ -8,7 +8,13 @@
 import UIKit
 import Photos
 
-class RecordDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+enum ListEditorMode {
+    case new
+    case edit(IndexPath, ListModel)
+}
+
+
+final class RecordDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var list: ListModel?
     var indexPath: IndexPath?
@@ -80,6 +86,19 @@ class RecordDetailViewController: UIViewController, UIImagePickerControllerDeleg
         return dateTextLabel
     }()
     
+    lazy var naviBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title:"변경하기", style: .plain, target: self, action: #selector(change))
+        button.tintColor = .black
+        return button
+    }()
+    
+    @objc private func change() {
+        let vc = RecordViewController()
+        guard let indexPath = self.indexPath else { return }
+        guard let list = self.list else { return }
+        vc.listEditorMode = .edit(indexPath, list)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

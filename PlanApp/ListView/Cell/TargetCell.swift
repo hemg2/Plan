@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TargetCell: UITableViewCell {
+final class TargetCell: UITableViewCell {
 //    lazy var mainImage: UIImageView = {
 //        let image = UIImageView()
 //        image.backgroundColor = .green

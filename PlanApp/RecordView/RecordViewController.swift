@@ -13,12 +13,13 @@ protocol ListViewDelegate: AnyObject {
     func didSelctReigster(list: ListModel)
 }
 
-class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+final class RecordViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private let imagePickerController = UIImagePickerController()
     weak var delegate: ListViewDelegate?
     private let datePicker = UIDatePicker()
     private var listDate: Date?
+    var listEditorMode: ListEditorMode = .new
     
     lazy var imageView: UIImageView = {
         let image = UIImageView()
@@ -108,6 +109,21 @@ class RecordViewController: UIViewController, UIImagePickerControllerDelegate, U
         imageViews()
         dateLayout()
         configureDatePicker()
+        configureEditorMode()
+    }
+    
+    private func configureEditorMode() {
+        switch self.listEditorMode {
+        case let .edit(_, list):
+            self.imageView.image = list.mainImage
+            self.titleTextField.text = list.title
+            self.descriptionTextField.text = list.description
+            self.dateTextField.text = self.dateToString(date: list.date)
+            self.listDate = list.date
+            self.naviBarButton.title = "수정"
+            
+        default: break
+        }
     }
     
     private func configureDatePicker() {
