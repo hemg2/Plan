@@ -189,7 +189,6 @@ extension RecordViewController {
             NotificationCenter.default.post(name: NSNotification.Name("List"), object: list, userInfo: [
                 "indexPath.row": indexPath.row])
         }
-        self.delegate?.didSelctReigster(list: list)
         self.navigationController?.popViewController(animated: true)
 
     }
