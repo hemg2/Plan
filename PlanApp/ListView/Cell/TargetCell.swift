@@ -39,7 +39,7 @@ class TargetCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         configure()
-
+        layers()
     }
         
     private func configure() {
@@ -74,6 +74,11 @@ class TargetCell: UITableViewCell {
 //        timeLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
     }
     
-    
+    ///테두리 색
+    private func layers() {
+        self.contentView.layer.cornerRadius = 3.0
+        self.contentView.layer.borderWidth = 1.0
+        self.contentView.layer.borderColor = UIColor.black.cgColor
+    }
     
 }

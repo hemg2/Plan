@@ -39,7 +39,7 @@ class ListCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         configure()
-
+        
     }
         
     private func configure() {
@@ -73,6 +73,8 @@ class ListCell: UITableViewCell {
         timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -10).isActive = true
 //        timeLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
     }
+    
+   
     
     
     

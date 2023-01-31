@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63AAEB032988E80700E3EF4A /* RecordDetailView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AAEB022988E80700E3EF4A /* RecordDetailView+Layout.swift */; };
 		63C0C2842986BE9700335071 /* TarGetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2832986BE9700335071 /* TarGetViewController.swift */; };
 		63C0C2862986BEA400335071 /* TarGetViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2852986BEA400335071 /* TarGetViewController+Layout.swift */; };
 		63C0C2882987845400335071 /* TargetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2872987845400335071 /* TargetCell.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63AAEB022988E80700E3EF4A /* RecordDetailView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordDetailView+Layout.swift"; sourceTree = "<group>"; };
 		63C0C2832986BE9700335071 /* TarGetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarGetViewController.swift; sourceTree = "<group>"; };
 		63C0C2852986BEA400335071 /* TarGetViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TarGetViewController+Layout.swift"; sourceTree = "<group>"; };
 		63C0C2872987845400335071 /* TargetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetCell.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				63C0C28A2988E28300335071 /* RecordDetailViewController.swift */,
+				63AAEB022988E80700E3EF4A /* RecordDetailView+Layout.swift */,
 			);
 			path = RecordDetailView;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				63DE0611297E75B9007D885C /* SceneDelegate.swift in Sources */,
 				63DE062F297FD469007D885C /* RecordViewController.swift in Sources */,
 				63DE063A2981636D007D885C /* RecordViewController+ButtonAction.swift in Sources */,
+				63AAEB032988E80700E3EF4A /* RecordDetailView+Layout.swift in Sources */,
 				63C0C2862986BEA400335071 /* TarGetViewController+Layout.swift in Sources */,
 				63DE0624297FB1CB007D885C /* ListModel.swift in Sources */,
 				63C0C2882987845400335071 /* TargetCell.swift in Sources */,
