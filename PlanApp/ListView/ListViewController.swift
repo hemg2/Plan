@@ -11,11 +11,11 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
   
     private var targetModel = [TagetModel]()
     private var list = [ListModel]()
-    {
-        didSet {
-            saveList()
-        }
-    }
+//    {
+//        didSet {
+//            saveList()
+//        }
+//    }
     
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -41,7 +41,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         navigationItem()
         tableViewLayout()
         tableViewExtension()
-        loadList()
+//        loadList()
         NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("List"), object: nil)
     }
     
@@ -75,22 +75,22 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
-    private func saveList() {
-    
-        let data = self.list.map {
-            $0.title
-        }
-        
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(data, forKey: "data")
-        print("저장은 되는건가\(data)")
-    }
-    
-    func loadList() {
-        let userDefaults = UserDefaults.standard
-        let data = userDefaults.object(forKey: "data") as? String
-        print("로드데이터\(data)")
-    }
+//    private func saveList() {
+//        let userDefaults = UserDefaults.standard
+//        let data = self.list.map {
+//            ["title": $0.title]
+//        }
+//
+//        userDefaults.set(data, forKey: "data")
+//        print("저장은 되는건가\(data)")
+//    }
+//
+//    private func loadList() {
+//        let userDefaults = UserDefaults.standard
+//        let data = userDefaults.object(forKey: "data")
+//
+////        print("로드데이터\(data)")
+//    }
     
     
     
