@@ -8,8 +8,8 @@
 import UIKit
 
 
-struct ListModel {
-    let mainImage: UIImage
+struct ListModel: Codable {
+    let mainImageData: Data?
     let title: String
     let description: String
     let date: Date

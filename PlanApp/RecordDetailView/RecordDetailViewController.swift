@@ -120,7 +120,9 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
     
     private func configureView() {
         guard let list = self.list else { return }
-        self.imageView.image = list.mainImage
+        if let mainImageData = list.mainImageData {
+            self.imageView.image = UIImage(data: mainImageData)
+        }
         self.titleTextLabel.text = list.title
         self.descriptionTextLabel.text = list.description
         self.dateTextLabel.text = self.dateToString(date: list.date)

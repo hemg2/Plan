@@ -115,7 +115,9 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     private func configureEditorMode() {
         switch self.listEditorMode {
         case let .edit(_, list):
-            self.imageView.image = list.mainImage
+            if let mainImageData = list.mainImageData {
+                self.imageView.image = UIImage(data: mainImageData)
+            }
             self.titleTextField.text = list.title
             self.descriptionTextField.text = list.description
             self.dateTextField.text = self.dateToString(date: list.date)
@@ -179,7 +181,7 @@ extension RecordViewController {
         guard let description = self.descriptionTextField.text else { return }
         guard let mainImage = self.imageView.image else { return }
         guard let date = self.listDate else { return }
-        let list = ListModel(mainImage: mainImage, title: title, description: description, date: date)
+        let list = ListModel(mainImageData: mainImage.pngData(), title: title, description: description, date: date)
         
         switch self.listEditorMode {
             

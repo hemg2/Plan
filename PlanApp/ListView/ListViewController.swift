@@ -11,11 +11,11 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
   
     private var targetModel = [TagetModel]()
     private var list = [ListModel]()
-//    {
-//        didSet {
-//            saveList()
-//        }
-//    }
+    {
+        didSet {
+            saveList()
+        }
+    }
     
     private var tableView: UITableView = {
         let tableView = UITableView()
@@ -41,7 +41,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         navigationItem()
         tableViewLayout()
         tableViewExtension()
-//        loadList()
+        loadList()
         NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("List"), object: nil)
     }
     
@@ -75,30 +75,28 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
-//    private func saveList() {
-//        let userDefaults = UserDefaults.standard
-//        let data = self.list.map {
-//            ["title": $0.title]
-//        }
-//
-//        userDefaults.set(data, forKey: "data")
-//        print("저장은 되는건가\(data)")
-//    }
-//
-//    private func loadList() {
-//        let userDefaults = UserDefaults.standard
-//        let data = userDefaults.object(forKey: "data")
-//
-////        print("로드데이터\(data)")
-//    }
+    private func saveList() {
+        let userDefaults = UserDefaults.standard
+        let encodedList = try! JSONEncoder().encode(list)
+        userDefaults.set(encodedList, forKey: "data")
+//        print("저장은 되는건가\(userDefaults.object(forKey: "data"))")
+    }
+
+    private func loadList() {
+        let userDefaults = UserDefaults.standard
+        guard let data = userDefaults.object(forKey: "data") as? Data else { return }
+        let decodedList = try! JSONDecoder().decode([ListModel].self, from: data)
+        list = decodedList
+//        print("로드데이터\(decodedList)")
+    }
     
     
     
-//    func setUserDefaults(UIImage value: UIImage, _ key: String) {
-//        let imageData = value.jpegData(compressionQuality: 1.0)
-//        UserDefaults.standard.set(imageData, forKey: "mainImage")
-//    }
-//
+    func setUserDefaults(UIImage value: UIImage, _ key: String) {
+        let imageData = value.jpegData(compressionQuality: 1.0)
+        UserDefaults.standard.set(imageData, forKey: "mainImage")
+    }
+
 //    func imageData() {
 //        if let imageData = UserDefaults.standard.data(forKey: "mainImage"),
 //           let image = UIImage(data: imageData) {
@@ -171,7 +169,9 @@ extension ListViewController: UITableViewDataSource {
             let lists = self.list[indexPath.row]
             cell.titleLabel.text = lists.title
             cell.descriptionLabel.text = lists.description
-            cell.mainImage.image = lists.mainImage
+            if let mainImageData = lists.mainImageData {
+                cell.mainImage.image = UIImage(data: mainImageData)
+            }
             cell.timeLabel.text = self.dateToString(date: lists.date)
             cell.accessoryType = .disclosureIndicator
             return cell
