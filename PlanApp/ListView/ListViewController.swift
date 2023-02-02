@@ -41,8 +41,12 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         navigationItem()
         tableViewLayout()
         tableViewExtension()
-        loadList()
         NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("List"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadList()
     }
     
     private func navigationItem() {
