@@ -12,6 +12,8 @@
 		63AAEB08298B834500E3EF4A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 63AAEB07298B834500E3EF4A /* FirebaseFirestore */; };
 		63AAEB0A298B834500E3EF4A /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 63AAEB09298B834500E3EF4A /* FirebaseFunctions */; };
 		63AAEB0C298B885900E3EF4A /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AAEB0B298B885900E3EF4A /* Encodable.swift */; };
+		63AAEB0F298BA07F00E3EF4A /* MyFirestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AAEB0E298BA07F00E3EF4A /* MyFirestore.swift */; };
+		63AAEB11298CAA6500E3EF4A /* FirestoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AAEB10298CAA6500E3EF4A /* FirestoreError.swift */; };
 		63C0C2842986BE9700335071 /* TarGetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2832986BE9700335071 /* TarGetViewController.swift */; };
 		63C0C2862986BEA400335071 /* TarGetViewController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2852986BEA400335071 /* TarGetViewController+Layout.swift */; };
 		63C0C2882987845400335071 /* TargetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2872987845400335071 /* TargetCell.swift */; };
@@ -32,6 +34,8 @@
 		63AAEB022988E80700E3EF4A /* RecordDetailView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordDetailView+Layout.swift"; sourceTree = "<group>"; };
 		63AAEB04298B82BC00E3EF4A /* GoogleService-Info-3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-3.plist"; sourceTree = "<group>"; };
 		63AAEB0B298B885900E3EF4A /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
+		63AAEB0E298BA07F00E3EF4A /* MyFirestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirestore.swift; sourceTree = "<group>"; };
+		63AAEB10298CAA6500E3EF4A /* FirestoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreError.swift; sourceTree = "<group>"; };
 		63C0C2832986BE9700335071 /* TarGetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarGetViewController.swift; sourceTree = "<group>"; };
 		63C0C2852986BEA400335071 /* TarGetViewController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TarGetViewController+Layout.swift"; sourceTree = "<group>"; };
 		63C0C2872987845400335071 /* TargetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetCell.swift; sourceTree = "<group>"; };
@@ -63,6 +67,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63AAEB0D298BA05E00E3EF4A /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				63AAEB0E298BA07F00E3EF4A /* MyFirestore.swift */,
+				63AAEB10298CAA6500E3EF4A /* FirestoreError.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
 		63C0C2822986BE5000335071 /* TarGetView */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +113,7 @@
 		63DE060D297E75B9007D885C /* PlanApp */ = {
 			isa = PBXGroup;
 			children = (
+				63AAEB0D298BA05E00E3EF4A /* Firestore */,
 				63DE0622297FB1BF007D885C /* Model */,
 				63DE0625297FB601007D885C /* ListView */,
 				63DE063329800C0A007D885C /* RecordView */,
@@ -231,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C0C28B2988E28300335071 /* RecordDetailViewController.swift in Sources */,
+				63AAEB0F298BA07F00E3EF4A /* MyFirestore.swift in Sources */,
 				63AAEB0C298B885900E3EF4A /* Encodable.swift in Sources */,
 				63C0C2842986BE9700335071 /* TarGetViewController.swift in Sources */,
 				63DE0613297E75B9007D885C /* ListViewController.swift in Sources */,
@@ -241,6 +256,7 @@
 				63DE063A2981636D007D885C /* RecordViewController+ButtonAction.swift in Sources */,
 				63AAEB032988E80700E3EF4A /* RecordDetailView+Layout.swift in Sources */,
 				63C0C2862986BEA400335071 /* TarGetViewController+Layout.swift in Sources */,
+				63AAEB11298CAA6500E3EF4A /* FirestoreError.swift in Sources */,
 				63DE0624297FB1CB007D885C /* ListModel.swift in Sources */,
 				63C0C2882987845400335071 /* TargetCell.swift in Sources */,
 				63DE0628297FB657007D885C /* ListCell.swift in Sources */,
