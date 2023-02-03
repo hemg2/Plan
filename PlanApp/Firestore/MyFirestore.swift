@@ -27,7 +27,7 @@ final class MyFirestore {
     }
     
     
-    func subscribe(title: String, completion: @escaping (Result<[ListModel], FirestoreErrorCode>) -> Void) {
+    func subscribe(title: String, completion: @escaping (Result<[ListModel], FirestoreError>) -> Void) {
         let collectionPath = "channels/\(title)/thread"
         
         let collectionListener = Firestore.firestore().collection(collectionPath)
@@ -36,19 +36,28 @@ final class MyFirestore {
         documentListener = collectionListener
             .addSnapshotListener { snapshot, error in
                 guard let snapshot = snapshot else {
-                    completion(.failure(FirestoreErrorCode.fires(error)))
+                    completion(.failure(FirestoreError.firestoreError(error)))
                     return
                 }
                 
                 
-                
+                var titles = [ListModel]()
+                snapshot.documentChanges.forEach { change in
+                    switch change.typr {
+                    case .added, .modified:
+                        do {
+                            if let title = try change.document.data(as: ListModel.self) {
+                                titles.append(title)
+                            }
+                        } catch {
+                            completion(.failure(.deadlineExceeded(error)))
+                        }
+                    default: break
+                    }
+                }
+                completion(.success(titles))
             }
-        
-        
     }
-    
-    
-    
     
     func removeListener() {
         documentListener?.remove()
