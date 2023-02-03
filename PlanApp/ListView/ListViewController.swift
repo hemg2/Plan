@@ -10,16 +10,18 @@ import UIKit
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
   
     private var targetModel = [TagetModel]()
-    private var list = [ListModel]()
-    {
+    private var list = [ListModel]() {
         didSet {
             saveList()
         }
     }
     
+    let myFirestore = MyFirestore()
+    
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
         return tableView
     }()
     lazy var naviRecordButton: UIBarButtonItem = {
@@ -81,8 +83,11 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     
     private func saveList() {
         let userDefaults = UserDefaults.standard
-        let encodedList = try! JSONEncoder().encode(list)
-        userDefaults.set(encodedList, forKey: "data")
+        
+        myFirestore.save(list)
+        
+//        let encodedList = try! JSONEncoder().encode(list)
+//        userDefaults.set(encodedList, forKey: "data")
 //        print("저장은 되는건가\(userDefaults.object(forKey: "data"))")
     }
 
@@ -100,13 +105,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         let imageData = value.jpegData(compressionQuality: 1.0)
         UserDefaults.standard.set(imageData, forKey: "mainImage")
     }
-
-//    func imageData() {
-//        if let imageData = UserDefaults.standard.data(forKey: "mainImage"),
-//           let image = UIImage(data: imageData) {
-//        }
-//    }
-    
     
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()

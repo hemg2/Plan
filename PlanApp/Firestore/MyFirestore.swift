@@ -13,8 +13,8 @@ final class MyFirestore {
     private var documentListener: ListenerRegistration?
     
     ///파이어베이스에 데이터 저장 메소드
-    func save(_ list: ListModel, completion: ((Error?) -> Void)? = nil) {
-        let collectionPath = "channels/\(list.title)/thread"
+    func save(_ list: [ListModel], completion: ((Error?) -> Void)? = nil) {
+        let collectionPath = "channels/1/thread"
         let collectionListener = Firestore.firestore().collection(collectionPath)
         
         guard let dictionary = list.asDictionary else {
@@ -26,9 +26,8 @@ final class MyFirestore {
         }
     }
     
-    
     func subscribe(title: String, completion: @escaping (Result<[ListModel], FirestoreError>) -> Void) {
-        let collectionPath = "channels/\(title)/thread"
+        let collectionPath = "channels/1/thread"
         
         let collectionListener = Firestore.firestore().collection(collectionPath)
     
@@ -43,18 +42,18 @@ final class MyFirestore {
                 
                 var titles = [ListModel]()
                 snapshot.documentChanges.forEach { change in
-                    switch change.typr {
+                    switch change.type {
                     case .added, .modified:
                         do {
-                            if let title = try change.document.data(as: ListModel.self) {
-                                titles.append(title)
-                            }
+                            let title = try change.document.data(as: ListModel.self)
+                            titles.append(title)
                         } catch {
-                            completion(.failure(.deadlineExceeded(error)))
+                            completion(.failure(.decodedError(error)))
                         }
                     default: break
                     }
                 }
+                print(titles)
                 completion(.success(titles))
             }
     }
