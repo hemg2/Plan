@@ -23,17 +23,11 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         return tableView
     }()
     lazy var naviRecordButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "하루 기록", style: .plain, target: self, action: #selector(recordVC))
+        let button = UIBarButtonItem(title: "꿈 기록", style: .plain, target: self, action: #selector(recordVC))
         button.tintColor = .black
         return button
     }()
-    
-    lazy var tarGetButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "목표 등록", style: .plain, target: self, action: #selector(tarGetVC))
-        button.tintColor = .black
-        return button
-    }()
-    
+
     
     
     override func viewDidLoad() {
@@ -48,7 +42,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     private func navigationItem() {
         view.backgroundColor = .systemBackground
         title = "기록"
-        self.navigationItem.rightBarButtonItems = [naviRecordButton, tarGetButton]
+        self.navigationItem.rightBarButtonItem = naviRecordButton
     }
     
     private func tableViewLayout() {
@@ -110,11 +104,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func tarGetVC(_ sender: UIBarButtonItem) {
-        let vcs = TarGetViewController()
-        vcs.delegate = self
-        self.navigationController?.pushViewController(vcs, animated: true)
-    }
     
     @objc func editDiaryNotification(_ notification: Notification) {
         guard let list = notification.object as? ListModel else { return }
@@ -138,27 +127,14 @@ extension ListViewController: ListViewDelegate {
     }
 }
 
-extension ListViewController: TarGetViewDelegate {
-    func didSelctReigsters(target: TagetModel) {
-        self.targetModel.append(target)
-        self.targetModel = self.targetModel.sorted(by: {
-            $0.date.compare($1.date) == .orderedDescending
-        })
-        self.tableView.reloadData()
-    }
+
     
-    
-}
+
 
 
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if section == 0 {
-//            self.targetModel.count
-//        } else if section == 1 {
-//            self.list.count
-//        }
         return list.count
     }
     
@@ -182,7 +158,9 @@ extension ListViewController: UITableViewDataSource {
 //            let lists = self.list[indexPath.row]
 //            cell.titleLabel.text = lists.title
 //            cell.descriptionLabel.text = lists.description
-//            cell.mainImage.image = lists.mainImage
+//             if let mainImageData = lists.mainImageData {
+//        cell.mainImage.image = UIImage(data: mainImageData)
+//    }
 //            cell.timeLabel.text = self.dateToString(date: lists.date)
 //            cell.accessoryType = .disclosureIndicator
 //            return cell
@@ -199,13 +177,13 @@ extension ListViewController: UITableViewDataSource {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-//        case 0: return "목표 계획"
-        case 0: return "일기 기록"
-        default: return nil
-        }
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch section {
+////        case 0: return "목표 계획"
+//        case 0: return "일기 기록"
+//        default: return nil
+//        }
+//    }
     
     
 //    func numberOfSections(in tableView: UITableView) -> Int {
