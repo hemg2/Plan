@@ -20,6 +20,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     private var tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
         return tableView
     }()
     lazy var naviRecordButton: UIBarButtonItem = {
