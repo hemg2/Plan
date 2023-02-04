@@ -9,8 +9,6 @@ import UIKit
 
 final class DatetableCell: UITableViewCell {
     
-    
-    
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .horizontal
@@ -60,5 +58,22 @@ final class DatetableCell: UITableViewCell {
 //        self.contentView.layer.borderWidth = 1.0
 //        self.contentView.layer.borderColor = UIColor.black.cgColor
 //    }
+    
+}
+
+
+
+extension DatetableCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionCell.id, for: indexPath) as? DateCollectionCell else { return UICollectionViewCell() }
+        cell.titleLabel.text = "1"
+        cell.subTitleLabel.text = "토"
+        return cell
+    }
+    
     
 }

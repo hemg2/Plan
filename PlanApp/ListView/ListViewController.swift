@@ -9,7 +9,6 @@ import UIKit
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
-    private var targetModel = [TagetModel]()
     private var list = [ListModel]()
     {
         didSet {
@@ -52,7 +51,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListCell.self, forCellReuseIdentifier: "ListCell")
-//        tableView.register(TargetCell.self, forCellReuseIdentifier: "cell1")
+        tableView.register(DatetableCell.self, forCellReuseIdentifier: "DatetableCell")
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -122,11 +121,17 @@ extension ListViewController: ListViewDelegate {
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.count
+        self.list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+       
+         if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "DatetableCell", for: indexPath) as? DatetableCell else { return UITableViewCell() }
+             
+            return cell
+        }
+        else if indexPath.section == 1 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as? ListCell else { return UITableViewCell() }
             
             let lists = self.list[indexPath.row]
@@ -139,19 +144,6 @@ extension ListViewController: UITableViewDataSource {
             cell.accessoryType = .disclosureIndicator
             return cell
         }
-//        else if indexPath.section == 1 {
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
-//
-//            let lists = self.list[indexPath.row]
-//            cell.titleLabel.text = lists.title
-//            cell.descriptionLabel.text = lists.description
-//             if let mainImageData = lists.mainImageData {
-//        cell.mainImage.image = UIImage(data: mainImageData)
-//    }
-//            cell.timeLabel.text = self.dateToString(date: lists.date)
-//            cell.accessoryType = .disclosureIndicator
-//            return cell
-//        }
         return UITableViewCell()
     }
     

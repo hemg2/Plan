@@ -16,8 +16,7 @@ struct ListModel: Codable {
 }
 
 
-struct TagetModel {
+struct DateModel {
     let title: String
     let description: String
-    let date: Date
 }
