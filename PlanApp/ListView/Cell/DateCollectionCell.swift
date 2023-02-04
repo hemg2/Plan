@@ -8,7 +8,6 @@
 import UIKit
 
 class DateCollectionCell: UICollectionViewCell {
-    static let id = "DateCollectionCell"
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()

@@ -26,7 +26,7 @@ final class DatetableCell: UITableViewCell {
       view.contentInset = .zero
       view.backgroundColor = .clear
       view.clipsToBounds = true
-      view.register(DateCollectionCell.self, forCellWithReuseIdentifier: DateCollectionCell.id)
+      view.register(DateCollectionCell.self, forCellWithReuseIdentifier: "DateCollectionCell")
       view.translatesAutoresizingMaskIntoConstraints = false
       return view
     }()
@@ -65,11 +65,11 @@ final class DatetableCell: UITableViewCell {
 
 extension DatetableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionCell.id, for: indexPath) as? DateCollectionCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionCell", for: indexPath) as? DateCollectionCell else { return UICollectionViewCell() }
         cell.titleLabel.text = "1"
         cell.subTitleLabel.text = "토"
         return cell

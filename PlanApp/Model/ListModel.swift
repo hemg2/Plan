@@ -20,3 +20,10 @@ struct DateModel {
     let title: String
     let description: String
 }
+
+
+
+enum Dream: Equatable {
+    case list
+    case date
+}

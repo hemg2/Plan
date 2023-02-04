@@ -165,9 +165,9 @@ extension ListViewController: UITableViewDataSource {
 //    }
     
     
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
    
     
     
