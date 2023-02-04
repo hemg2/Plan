@@ -8,7 +8,7 @@
 import UIKit
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-  
+    
     private var targetModel = [TagetModel]()
     private var list = [ListModel]()
     {
@@ -23,6 +23,8 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.separatorStyle = .none
         return tableView
     }()
+    
+    
     lazy var naviRecordButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "꿈 기록", style: .plain, target: self, action: #selector(recordVC))
         button.tintColor = .black
@@ -42,14 +44,14 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     
     private func navigationItem() {
         view.backgroundColor = .systemBackground
-        title = "기록"
+        title = ""
         self.navigationItem.rightBarButtonItem = naviRecordButton
     }
     
     private func tableViewLayout() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ListCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(ListCell.self, forCellReuseIdentifier: "ListCell")
 //        tableView.register(TargetCell.self, forCellReuseIdentifier: "cell1")
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -87,18 +89,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     
     
     
-    func setUserDefaults(UIImage value: UIImage, _ key: String) {
-        let imageData = value.jpegData(compressionQuality: 1.0)
-        UserDefaults.standard.set(imageData, forKey: "mainImage")
-    }
-
-//    func imageData() {
-//        if let imageData = UserDefaults.standard.data(forKey: "mainImage"),
-//           let image = UIImage(data: imageData) {
-//        }
-//    }
-    
-    
     @objc func recordVC(_ sender: UIBarButtonItem) {
         let vc = RecordViewController()
         vc.delegate = self
@@ -129,10 +119,6 @@ extension ListViewController: ListViewDelegate {
 }
 
 
-    
-
-
-
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -141,7 +127,7 @@ extension ListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ListCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as? ListCell else { return UITableViewCell() }
             
             let lists = self.list[indexPath.row]
             cell.titleLabel.text = lists.title
