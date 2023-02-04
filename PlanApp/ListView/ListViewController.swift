@@ -75,7 +75,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         let userDefaults = UserDefaults.standard
         let encodedList = try! JSONEncoder().encode(list)
         userDefaults.set(encodedList, forKey: "data")
-//        print("저장은 되는건가\(userDefaults.object(forKey: "data"))")
     }
 
     private func loadList() {
@@ -83,7 +82,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         guard let data = userDefaults.object(forKey: "data") as? Data else { return }
         let decodedList = try! JSONDecoder().decode([ListModel].self, from: data)
         list = decodedList
-//        print("로드데이터\(decodedList)")
     }
     
     
@@ -121,7 +119,13 @@ extension ListViewController: ListViewDelegate {
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.list.count
+        if section == 0 {
+            1
+        }
+        else if section == 1 {
+            return list.count
+        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

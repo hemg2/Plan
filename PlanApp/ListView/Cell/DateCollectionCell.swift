@@ -34,21 +34,21 @@ class DateCollectionCell: UICollectionViewCell {
     
     func layoutdata() {
         
-        //        contentView.addSubview(titleLabel)
-        [titleLabel, subTitleLabel].forEach {
-            contentView.addSubview($0)
-        }
+        contentView.addSubview(titleLabel)
+        //        [titleLabel, subTitleLabel].forEach {
+        //            contentView.addSubview($0)
+        //        }
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 5).isActive = true
         //        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+//        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
         
-        //        contentView.addSubview(subTitleLabel)
+        contentView.addSubview(subTitleLabel)
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 5).isActive = true
         subTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        subTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
+//        subTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
         subTitleLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
         
     }

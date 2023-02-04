@@ -55,7 +55,7 @@ final class ListCell: UITableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 10).isActive = true
 //        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+//        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: mainImage.trailingAnchor, constant: 10).isActive = true
 
 
@@ -63,7 +63,7 @@ final class ListCell: UITableViewCell {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 10).isActive = true
 //        descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
+//        descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: mainImage.trailingAnchor, constant: 10).isActive = true
 
         contentView.addSubview(timeLabel)
@@ -75,7 +75,12 @@ final class ListCell: UITableViewCell {
     }
     
    
-    
+    ///테두리 색
+//    private func layers() {
+//        self.contentView.layer.cornerRadius = 3.0
+//        self.contentView.layer.borderWidth = 1.0
+//        self.contentView.layer.borderColor = UIColor.black.cgColor
+//    }
     
     
 }
