@@ -36,23 +36,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         return button
     }()
     
-    lazy var agoButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(didTapAgo))
-        button.image = UIImage(systemName: "arrowshape.backward.fill")
-        button.tintColor = .black
-        return button
-    }()
-
-    lazy var nextButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: nil, style: .plain, target: self, action: #selector(didTapNext))
-        button.image = UIImage(systemName: "arrowshape.right.fill")
-        button.tintColor = .black
-        return button
-    }()
-
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem()
@@ -65,8 +48,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     private func navigationItem() {
         view.backgroundColor = .systemBackground
         title = CalendarHelper().monthString(date: selectedDate) + " " + CalendarHelper().yearString(date: selectedDate)
-        self.navigationItem.rightBarButtonItems = [naviRecordButton, nextButton]
-        self.navigationItem.leftBarButtonItems = [agoButton]
+        self.navigationItem.rightBarButtonItem = naviRecordButton
     }
     
     private func tableViewLayout() {
@@ -124,32 +106,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         })
         self.tableView.reloadData()
     }
-    
-    @objc func didTapAgo(_ sender: UIBarButtonItem) {
-        selectedDate = CalendarHelper().addDays(date: selectedDate, days: -7)
-        setWeekView()
-    }
-    @objc func didTapNext(_ sender: UIBarButtonItem) {
-        selectedDate = CalendarHelper().addDays(date: selectedDate, days: 7)
-        setWeekView()
-    }
-    
-    private func setWeekView() {
-        totalSquares.removeAll()
-        
-        var current = CalendarHelper().sundayForDate(date: selectedDate)
-        let nextSunday = CalendarHelper().addDays(date: current, days: 7)
-        
-        while (current < nextSunday)
-        {
-            totalSquares.append(current)
-            current = CalendarHelper().addDays(date: current, days: 1)
-        }
-        
-        DatetableCell().collectionView.reloadData()
-        tableView.reloadData()
-    }
-
 }
 
 extension ListViewController: ListViewDelegate {

@@ -37,11 +37,37 @@ final class DatetableCell: UITableViewCell {
       return view
     }()
 
+    lazy var nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(nil, for: .normal)
+        button.setImage(UIImage(systemName: "arrowshape.forward.fill"), for: .normal)
+        button.addTarget(self, action: #selector(nextButton(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var previousWeekButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(nil, for: .normal)
+        button.setImage(UIImage(systemName: "arrowshape.left.fill"), for: .normal)
+        button.addTarget(self, action: #selector(previousWeekButton(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func nextButton(_ sender: UIButton) {
+        selectedDate = CalendarHelper().addDays(date: selectedDate, days: 7)
+        setWeekView()
+    }
+    
+    @objc func previousWeekButton(_ sender: UIButton) {
+        selectedDate = CalendarHelper().addDays(date: selectedDate, days: -7)
+        setWeekView()
+    }
+    
+    
     func setWeekView() {
         totalDay.removeAll()
-        
         var current = CalendarHelper().sundayForDate(date: now)
-        let nextSunday = CalendarHelper().addDays(date: current, days: 7)
+        let nextSunday = CalendarHelper().addDays(date: current, days: 14)
         //지난 꿈 x
         while (current < nextSunday)
         {
@@ -84,7 +110,16 @@ final class DatetableCell: UITableViewCell {
         collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-
+        
+        contentView.addSubview(nextButton)
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+        
+        contentView.addSubview(previousWeekButton)
+        previousWeekButton.translatesAutoresizingMaskIntoConstraints = false
+        previousWeekButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        previousWeekButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
     }
     
     
