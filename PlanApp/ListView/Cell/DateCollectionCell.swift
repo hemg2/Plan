@@ -12,12 +12,14 @@ class DateCollectionCell: UICollectionViewCell {
     lazy var weekLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
+        label.textAlignment = .center
         return label
     }()
     
     lazy var dayLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
+        label.textAlignment = .center
         return label
     }()
     
@@ -41,7 +43,7 @@ class DateCollectionCell: UICollectionViewCell {
         weekLabel.translatesAutoresizingMaskIntoConstraints = false
         weekLabel.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 5).isActive = true
         //        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        weekLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+//        weekLabel.trailingAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         weekLabel.leadingAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         contentView.addSubview(dayLabel)
