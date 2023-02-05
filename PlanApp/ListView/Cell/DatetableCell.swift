@@ -9,6 +9,16 @@ import UIKit
 
 final class DatetableCell: UITableViewCell {
     
+    let now = Date()
+    let cal = Calendar.current
+    let dateFormatter = DateFormatter()
+    var components = DateComponents()
+    var weeks: [String] = ["일", "월", "화", "수", "목", "금", "토"]
+    var days: [String] = []
+    var daysCountInMonth = 0
+    var weekdayAdding = 0
+    var totalDay = [Date]()
+    
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .horizontal
@@ -30,19 +40,41 @@ final class DatetableCell: UITableViewCell {
       return view
     }()
 
+    func setWeekView()
+    {
+        totalDay.removeAll()
+        
+        var current = CalendarHelper().sundayForDate(date: now)
+        let nextSunday = CalendarHelper().addDays(date: current, days: 7)
+        
+        while (current < nextSunday)
+        {
+            totalDay.append(current)
+            current = CalendarHelper().addDays(date: current, days: 1)
+        }
+        
+//        monthLabel.text = CalendarHelper().monthString(date: selectedDate)
+//            + " " + CalendarHelper().yearString(date: selectedDate)
+        collectionView.reloadData()
+//        tableView.reloadData()
+    }
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         configure()
+        setWeekView()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         configure()
+        setWeekView()
     }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configure()
+        setWeekView()
     }
     
     required init?(coder: NSCoder) {
@@ -59,6 +91,7 @@ final class DatetableCell: UITableViewCell {
         collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+
     }
 }
 
@@ -66,20 +99,48 @@ final class DatetableCell: UITableViewCell {
 
 extension DatetableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return totalDay.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionCell", for: indexPath) as? DateCollectionCell else { return UICollectionViewCell() }
-        cell.titleLabel.text = "1"
-        cell.subTitleLabel.text = "토"
+       
+        
+        let date = totalDay[indexPath.item]
+        
+        cell.weekLabel.text = String(CalendarHelper().dayOfMonth(date: date))
+        cell.dayLabel.text = "데이"
+//        switch indexPath.section {
+//        case 0:
+//            cell.weekLabel.text = weeks[indexPath.row]
+//        default:
+//            cell.weekLabel.text = days[indexPath.row]
+//        }
+//
+        if indexPath.row % 7 == 0 {
+            cell.weekLabel.textColor = .red
+        } else if indexPath.row % 7 == 6 {
+            cell.weekLabel.textColor = .blue
+        } else {
+            cell.weekLabel.textColor = .black
+        }
+        
         return cell
     }
+    
     
     
 }
 
 
-extension DatetableCell: UICollectionViewDelegate {
+extension DatetableCell: UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 50, height: 50)
+    }
+    
+    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 }

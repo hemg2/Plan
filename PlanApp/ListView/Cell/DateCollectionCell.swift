@@ -9,13 +9,13 @@ import UIKit
 
 class DateCollectionCell: UICollectionViewCell {
     
-    lazy var titleLabel: UILabel = {
+    lazy var weekLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
+        label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
     
-    lazy var subTitleLabel : UILabel = {
+    lazy var dayLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
         return label
@@ -34,22 +34,22 @@ class DateCollectionCell: UICollectionViewCell {
     
     func layoutdata() {
         
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(weekLabel)
         //        [titleLabel, subTitleLabel].forEach {
         //            contentView.addSubview($0)
         //        }
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 5).isActive = true
+        weekLabel.translatesAutoresizingMaskIntoConstraints = false
+        weekLabel.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 5).isActive = true
         //        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-//        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
+        weekLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+        weekLabel.leadingAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
-        contentView.addSubview(subTitleLabel)
-        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subTitleLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 5).isActive = true
-        subTitleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-//        subTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
-        subTitleLabel.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 10).isActive = true
+        contentView.addSubview(dayLabel)
+        dayLabel.translatesAutoresizingMaskIntoConstraints = false
+        dayLabel.topAnchor.constraint(equalTo:weekLabel.bottomAnchor, constant: 5).isActive = true
+        dayLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
+        //        subTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
+        dayLabel.leadingAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
     }
     
