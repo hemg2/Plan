@@ -10,8 +10,6 @@ import UIKit
 final class DatetableCell: UITableViewCell {
     
     let now = Date()
-    let cal = Calendar.current
-    var weeks: [String] = ["일", "월", "화", "수", "목", "금", "토"]
     var totalDay = [Date]()
     var selectedDate = Date()
     
@@ -104,17 +102,18 @@ final class DatetableCell: UITableViewCell {
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         
-        contentView.addSubview(nextButton)
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-        
-        contentView.addSubview(previousWeekButton)
-        previousWeekButton.translatesAutoresizingMaskIntoConstraints = false
-        previousWeekButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        previousWeekButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
+//        contentView.addSubview(nextButton)
+//        nextButton.translatesAutoresizingMaskIntoConstraints = false
+//        nextButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+//        nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+//
+//        contentView.addSubview(previousWeekButton)
+//        previousWeekButton.translatesAutoresizingMaskIntoConstraints = false
+//        previousWeekButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+//        previousWeekButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
     }
     
+    /// 요일 함수
     private func getDayOfWeek(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEEEE"
@@ -172,6 +171,7 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDate = totalDay[indexPath.item]
         collectionView.reloadData()
+        
         print("날짜 클릭중")
     }
 }
