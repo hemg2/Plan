@@ -25,7 +25,7 @@ class CalendarHelper
 	func yearString(date: Date) -> String
 	{
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "yyyy"
+		dateFormatter.dateFormat = "yyyy년"
 		return dateFormatter.string(from: date)
 	}
 	
