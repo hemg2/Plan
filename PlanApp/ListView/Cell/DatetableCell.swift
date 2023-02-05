@@ -7,33 +7,25 @@
 
 import UIKit
 
-var selectedDate = Date()
-
 final class DatetableCell: UITableViewCell {
     
     let now = Date()
     let cal = Calendar.current
     var weeks: [String] = ["일", "월", "화", "수", "목", "금", "토"]
     var totalDay = [Date]()
-    let cellMarginSize: CGFloat = 10.0
+    var selectedDate = Date()
     
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .horizontal
 //        layout.minimumLineSpacing = 0.5
 //        layout.minimumInteritemSpacing = 0.5
-//      layout.itemSize = .init(width: 300, height: 120)
       return layout
     }()
     
     lazy var collectionView: UICollectionView = {
       let view = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
         view.backgroundColor = .systemBackground
-//      view.isScrollEnabled = true
-//      view.showsHorizontalScrollIndicator = false
-//      view.showsVerticalScrollIndicator = true
-//      view.contentInset = .zero
-//      view.clipsToBounds = true
       return view
     }()
 
@@ -67,13 +59,14 @@ final class DatetableCell: UITableViewCell {
     func setWeekView() {
         totalDay.removeAll()
         var current = CalendarHelper().sundayForDate(date: now)
-        let nextSunday = CalendarHelper().addDays(date: current, days: 14)
+        let nextSunday = CalendarHelper().addDays(date: current, days: 35)
         //지난 꿈 x
         while (current < nextSunday)
         {
             totalDay.append(current)
             current = CalendarHelper().addDays(date: current, days: 1)
         }
+        
         collectionView.reloadData()
     }
     
@@ -122,9 +115,16 @@ final class DatetableCell: UITableViewCell {
         previousWeekButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
     }
     
+    private func getDayOfWeek(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEEEE"
+        formatter.locale = Locale(identifier:"ko_KR")
+        let convertStr = formatter.string(from: date)
+        return convertStr
+    }
+    
     
 }
-
 
 
 extension DatetableCell: UICollectionViewDataSource {
@@ -138,8 +138,8 @@ extension DatetableCell: UICollectionViewDataSource {
         
         let date = totalDay[indexPath.item]
         cell.weekLabel.text = String(CalendarHelper().dayOfMonth(date: date))
-        cell.dayLabel.text = "금"
-//        cell.backgroundColor = .green
+        cell.dayLabel.text = getDayOfWeek(date: date)
+        cell.backgroundColor = .green
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1.0
         cell.layer.cornerRadius = 10
