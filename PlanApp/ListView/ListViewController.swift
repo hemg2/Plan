@@ -26,6 +26,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     
@@ -47,7 +48,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     
     private func navigationItem() {
         view.backgroundColor = .systemBackground
-        title = CalendarHelper().monthString(date: selectedDate) + " " + CalendarHelper().yearString(date: selectedDate)
+        title = CalendarHelper().yearString(date: selectedDate) + " " + CalendarHelper().monthString(date: selectedDate)
         self.navigationItem.rightBarButtonItem = naviRecordButton
     }
     
@@ -135,7 +136,7 @@ extension ListViewController: UITableViewDataSource {
        
          if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DatetableCell", for: indexPath) as? DatetableCell else { return UITableViewCell() }
-             
+    
             return cell
         }
         else if indexPath.section == 1 {

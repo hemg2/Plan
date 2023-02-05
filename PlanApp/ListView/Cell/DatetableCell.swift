@@ -16,15 +16,16 @@ final class DatetableCell: UITableViewCell {
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
       let layout = UICollectionViewFlowLayout()
       layout.scrollDirection = .horizontal
-//        layout.minimumLineSpacing = 0.5
-//        layout.minimumInteritemSpacing = 0.5
+        layout.minimumLineSpacing = 0.5
+        layout.minimumInteritemSpacing = 0.5
       return layout
     }()
     
     lazy var collectionView: UICollectionView = {
-      let view = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
-        view.backgroundColor = .systemBackground
-      return view
+      let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
+        
+        collectionView.backgroundColor = .systemBackground
+      return collectionView
     }()
 
     lazy var nextButton: UIButton = {
@@ -179,9 +180,9 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
 
 extension DatetableCell: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//    }
     
     /// 그리드의 항목 줄 사이에 사용할 최소 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
