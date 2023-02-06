@@ -22,7 +22,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     var selectedDate = Date()
     var totalSquares = [Date]()
     
-    private var tableView: UITableView = {
+    var tableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none

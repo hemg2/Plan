@@ -172,7 +172,7 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDate = totalDay[indexPath.item]
         collectionView.reloadData()
-        
+        ListViewController().tableView.reloadData()
         print("날짜 클릭중")
     }
 }
