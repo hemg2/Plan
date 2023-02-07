@@ -8,8 +8,6 @@
 import UIKit
 
 
-
-
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     private var list = [ListModel]()
@@ -26,7 +24,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     

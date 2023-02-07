@@ -58,7 +58,7 @@ final class DatetableCell: UITableViewCell {
     func setWeekView() {
         totalDay.removeAll()
         var current = CalendarHelper().sundayForDate(date: now)
-        let nextSunday = CalendarHelper().addDays(date: current, days: 35)
+        let nextSunday = CalendarHelper().addDays(date: current, days: 28)
         //지난 꿈 x
         while (current < nextSunday)
         {
@@ -143,6 +143,7 @@ extension DatetableCell: UICollectionViewDataSource {
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1.0
         cell.layer.cornerRadius = 10
+       
         if indexPath.row % 7 == 0 {
             cell.weekLabel.textColor = .red
             cell.dayLabel.textColor = .red
