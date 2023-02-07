@@ -75,7 +75,10 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
-        textField.frame = CGRect(x: 100, y: 100, width: 400, height: 40)
+        textField.frame = CGRect(x: 0, y: 0, width: 400, height: 40)
+        textField.layer.borderWidth = 1
+//        textField.layer.shadowColor = CGColor(gray: 0.5, alpha: 1.0)
+        textField.layer.borderColor = UIColor.black.cgColor
         textField.borderStyle = .roundedRect
         textField.placeholder = "제목을 입력해주세요."
         return textField

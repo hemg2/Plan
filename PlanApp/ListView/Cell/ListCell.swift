@@ -80,7 +80,7 @@ final class ListCell: UITableViewCell {
     ///테두리 색
     func layers() {
         self.contentView.layer.cornerRadius = 3.0
-        self.contentView.layer.borderWidth = 1.0
+        self.contentView.layer.borderWidth = 0.3
         self.contentView.layer.borderColor = UIColor.gray.cgColor
     }
     

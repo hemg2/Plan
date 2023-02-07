@@ -171,10 +171,16 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var list = [ListModel]()
         selectedDate = totalDay[indexPath.row]
         DatetableCell().collectionView.reloadData()
         ListViewController().tableView.reloadData()
-        print("날짜 클릭중")
+//        if self.selectedDate == list.date {
+//            DatetableCell().collectionView.reloadData()
+//            ListViewController().tableView.reloadData()
+//        }
+        print("\(selectedDate)셀렉션")
+        print("\(indexPath)클릭")
     }
 }
 
