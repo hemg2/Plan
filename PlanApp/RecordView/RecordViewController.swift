@@ -37,9 +37,18 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     lazy var imageButton: UIButton = {
         let button = UIButton()
         button.setTitle("사진추가", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.addTarget(self, action: #selector(keepPhoto), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var imagePickerButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("사진촬영", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.setImage(UIImage(systemName: "camera"), for: .normal)
+        button.addTarget(self, action: #selector(cameraVC), for: .touchUpInside)
         return button
     }()
     
@@ -89,12 +98,12 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
         return textField
     }()
     
-    lazy var naviButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title:nil, style: .plain, target: self, action: #selector(cameraVC))
-        button.image = UIImage(systemName: "camera")
-        button.tintColor = .black
-        return button
-    }()
+//    lazy var naviButton: UIBarButtonItem = {
+//        let button = UIBarButtonItem(title:nil, style: .plain, target: self, action: #selector(cameraVC))
+//        button.image = UIImage(systemName: "camera")
+//        button.tintColor = .black
+//        return button
+//    }()
     
     lazy var naviBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title:"추가하기", style: .plain, target: self, action: #selector(add))

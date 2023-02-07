@@ -12,7 +12,7 @@ extension RecordViewController {
     func navigations() {
         view.backgroundColor = .systemBackground
         title = "기록하기"
-        self.navigationItem.rightBarButtonItems = [naviBarButton,naviButton]
+        self.navigationItem.rightBarButtonItem = naviBarButton
     }
     
     func imageViews() {
@@ -37,6 +37,13 @@ extension RecordViewController {
         imageButton.translatesAutoresizingMaskIntoConstraints = false
         imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 28).isActive = true
         imageButton.leadingAnchor.constraint(equalTo: imageLabel.trailingAnchor, constant:  10).isActive = true
+        
+        
+        view.addSubview(imagePickerButton)
+        imagePickerButton.translatesAutoresizingMaskIntoConstraints = false
+        imagePickerButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 28).isActive = true
+        imagePickerButton.leadingAnchor.constraint(equalTo: imageButton.trailingAnchor, constant:  10).isActive = true
+        
     }
     
     func layout() {
