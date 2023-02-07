@@ -29,7 +29,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     
     
     lazy var naviRecordButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "꿈 기록", style: .plain, target: self, action: #selector(recordVC))
+        let button = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(recordVC))
         button.tintColor = .black
         return button
     }()
@@ -41,6 +41,12 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableViewExtension()
         loadList()
         NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("List"), object: nil)
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     private func navigationItem() {
@@ -146,7 +152,7 @@ extension ListViewController: UITableViewDataSource {
                 cell.mainImage.image = UIImage(data: mainImageData)
             }
             cell.timeLabel.text = self.dateToString(date: lists.date)
-            cell.accessoryType = .disclosureIndicator
+//            cell.accessoryType = .disclosureIndicator
             return cell
         }
         return UITableViewCell()

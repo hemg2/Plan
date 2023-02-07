@@ -25,21 +25,24 @@ extension RecordViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.topAnchor.constraint(equalTo: imageLabel.bottomAnchor, constant: 15).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
         view.addSubview(imageButton)
+//        imageButton.translatesAutoresizingMaskIntoConstraints = false
+//        imageButton.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
+//        imageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
+//        imageButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
+//        imageButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         imageButton.translatesAutoresizingMaskIntoConstraints = false
-        imageButton.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
-        imageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        imageButton.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        imageButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 28).isActive = true
+        imageButton.leadingAnchor.constraint(equalTo: imageLabel.trailingAnchor, constant:  10).isActive = true
     }
     
     func layout() {
         view.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 250).isActive = true
+        titleLabel.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor, constant: 200).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         
         view.addSubview(titleTextField)

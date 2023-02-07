@@ -136,7 +136,7 @@ extension DatetableCell: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionCell", for: indexPath) as? DateCollectionCell else { return UICollectionViewCell() }
        
         
-        let date = totalDay[indexPath.item]
+        let date = totalDay[indexPath.row]
         cell.weekLabel.text = String(CalendarHelper().dayOfMonth(date: date))
         cell.dayLabel.text = getDayOfWeek(date: date)
         cell.backgroundColor = .green
@@ -171,8 +171,8 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedDate = totalDay[indexPath.item]
-        collectionView.reloadData()
+        selectedDate = totalDay[indexPath.row]
+        DatetableCell().collectionView.reloadData()
         ListViewController().tableView.reloadData()
         print("날짜 클릭중")
     }

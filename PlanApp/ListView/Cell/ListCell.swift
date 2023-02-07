@@ -39,7 +39,7 @@ final class ListCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         configure()
-        
+        layers()
     }
         
     private func configure() {
@@ -61,7 +61,7 @@ final class ListCell: UITableViewCell {
         contentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 5).isActive = true
-        descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
 //        descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
 
@@ -78,11 +78,11 @@ final class ListCell: UITableViewCell {
     
    
     ///테두리 색
-//    private func layers() {
-//        self.contentView.layer.cornerRadius = 3.0
-//        self.contentView.layer.borderWidth = 1.0
-//        self.contentView.layer.borderColor = UIColor.black.cgColor
-//    }
+    func layers() {
+        self.contentView.layer.cornerRadius = 3.0
+        self.contentView.layer.borderWidth = 1.0
+        self.contentView.layer.borderColor = UIColor.gray.cgColor
+    }
     
     
 }

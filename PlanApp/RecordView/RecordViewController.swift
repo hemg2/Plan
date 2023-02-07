@@ -36,8 +36,9 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     
     lazy var imageButton: UIButton = {
         let button = UIButton()
-        button.setTitle(nil, for: .normal)
-        //        button.setImage(UIImage(systemName: "plus"), for: .normal)
+        button.setTitle("사진추가", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.addTarget(self, action: #selector(keepPhoto), for: .touchUpInside)
         return button
     }()
@@ -103,6 +104,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         imagePickerController.delegate = self
         navigations()
         layout()
