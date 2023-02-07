@@ -9,9 +9,10 @@ import UIKit
 
 final class DatetableCell: UITableViewCell {
     
-    let now = Date()
-    var totalDay = [Date]()
-    var selectedDate = Date()
+    private let now = Date()
+    private var totalDay = [Date]()
+    private var selectedDate = Date()
+    private let list = [ListModel]()
     
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
       let layout = UICollectionViewFlowLayout()
@@ -28,31 +29,31 @@ final class DatetableCell: UITableViewCell {
       return collectionView
     }()
 
-    lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(nil, for: .normal)
-        button.setImage(UIImage(systemName: "arrowshape.forward.fill"), for: .normal)
-        button.addTarget(self, action: #selector(nextButton(_:)), for: .touchUpInside)
-        return button
-    }()
-    
-    lazy var previousWeekButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(nil, for: .normal)
-        button.setImage(UIImage(systemName: "arrowshape.left.fill"), for: .normal)
-        button.addTarget(self, action: #selector(previousWeekButton(_:)), for: .touchUpInside)
-        return button
-    }()
-    
-    @objc func nextButton(_ sender: UIButton) {
-        selectedDate = CalendarHelper().addDays(date: selectedDate, days: 7)
-        setWeekView()
-    }
-    
-    @objc func previousWeekButton(_ sender: UIButton) {
-        selectedDate = CalendarHelper().addDays(date: selectedDate, days: -7)
-        setWeekView()
-    }
+//    lazy var nextButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle(nil, for: .normal)
+//        button.setImage(UIImage(systemName: "arrowshape.forward.fill"), for: .normal)
+//        button.addTarget(self, action: #selector(nextButton(_:)), for: .touchUpInside)
+//        return button
+//    }()
+//
+//    lazy var previousWeekButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle(nil, for: .normal)
+//        button.setImage(UIImage(systemName: "arrowshape.left.fill"), for: .normal)
+//        button.addTarget(self, action: #selector(previousWeekButton(_:)), for: .touchUpInside)
+//        return button
+//    }()
+//
+//    @objc func nextButton(_ sender: UIButton) {
+//        selectedDate = CalendarHelper().addDays(date: selectedDate, days: 7)
+//        setWeekView()
+//    }
+//
+//    @objc func previousWeekButton(_ sender: UIButton) {
+//        selectedDate = CalendarHelper().addDays(date: selectedDate, days: -7)
+//        setWeekView()
+//    }
     
     
     func setWeekView() {
@@ -122,6 +123,13 @@ final class DatetableCell: UITableViewCell {
         let convertStr = formatter.string(from: date)
         return convertStr
     }
+
+    private func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy년 MM월 dd일(EEEEE)"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter.string(from: date)
+    }
     
     
 }
@@ -171,14 +179,27 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var list = [ListModel]()
         selectedDate = totalDay[indexPath.row]
-        DatetableCell().collectionView.reloadData()
-        ListViewController().tableView.reloadData()
-//        if self.selectedDate == list.date {
-//            DatetableCell().collectionView.reloadData()
-//            ListViewController().tableView.reloadData()
-//        }
+        
+//        let lists = self.list[indexPath.row]
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "\(selectedDate)"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+//        let date = dateFormatter.date(from: "\(selectedDate)")
+        let dateString = dateFormatter.string(from: selectedDate)
+        
+        let dateFormatters = DateFormatter()
+        let a = list.map {
+            dateFormatter.dateFormat = "\($0.date)"
+            dateFormatter.string(from: $0.date)
+        }
+//        dateFormatters.dateFormat = "\(dateToString(date:lists.date))"
+        
+//        print("\(totalDay)투데이는먼데")
+        
+        print("\(a)1번aaa table date 스트링 값")
+        print("\(dateString)2번 collection date 스트링 값")
         print("\(selectedDate)셀렉션")
         print("\(indexPath)클릭")
     }

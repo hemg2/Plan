@@ -1,4 +1,4 @@
-import Foundation
+
 import UIKit
 
 class CalendarHelper
@@ -19,6 +19,7 @@ class CalendarHelper
 	{
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "LLLL"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
 		return dateFormatter.string(from: date)
 	}
 	
@@ -26,6 +27,7 @@ class CalendarHelper
 	{
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "yyyy년"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
 		return dateFormatter.string(from: date)
 	}
 	
@@ -33,6 +35,7 @@ class CalendarHelper
 	{
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
 		return dateFormatter.string(from: date)
 	}
 	
