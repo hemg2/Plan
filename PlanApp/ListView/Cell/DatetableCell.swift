@@ -191,12 +191,14 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
         
         let dateFormatters = DateFormatter()
         let a = list.map {
-            dateFormatter.dateFormat = "\($0.date)"
-            dateFormatter.string(from: $0.date)
+            dateFormatters.dateFormat = "\($0.date)"
+            dateFormatters.string(from: $0.date)
         }
-//        dateFormatters.dateFormat = "\(dateToString(date:lists.date))"
         
-//        print("\(totalDay)투데이는먼데")
+        if dateFormatter == dateFormatters {
+            collectionView.reloadData()
+            ListViewController().tableView.reloadData()
+        }
         
         print("\(a)1번aaa table date 스트링 값")
         print("\(dateString)2번 collection date 스트링 값")
