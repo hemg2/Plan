@@ -186,20 +186,19 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "\(selectedDate)"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-//        let date = dateFormatter.date(from: "\(selectedDate)")
+        //        let date = dateFormatter.date(from: "\(selectedDate)")
         let dateString = dateFormatter.string(from: selectedDate)
         
         let dateFormatters = DateFormatter()
-        let a = list.map {
+        let a: [()] = list.map {
             dateFormatters.dateFormat = "\($0.date)"
             dateFormatters.string(from: $0.date)
         }
         
         if dateFormatter == dateFormatters {
-            collectionView.reloadData()
+            DatetableCell().collectionView.reloadData()
             ListViewController().tableView.reloadData()
         }
-        
         print("\(a)1번aaa table date 스트링 값")
         print("\(dateString)2번 collection date 스트링 값")
         print("\(selectedDate)셀렉션")
