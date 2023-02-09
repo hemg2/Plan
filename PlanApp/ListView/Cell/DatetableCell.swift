@@ -33,33 +33,6 @@ final class DatetableCell: UITableViewCell {
         collectionView.backgroundColor = .systemBackground
       return collectionView
     }()
-
-//    lazy var nextButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle(nil, for: .normal)
-//        button.setImage(UIImage(systemName: "arrowshape.forward.fill"), for: .normal)
-//        button.addTarget(self, action: #selector(nextButton(_:)), for: .touchUpInside)
-//        return button
-//    }()
-//
-//    lazy var previousWeekButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle(nil, for: .normal)
-//        button.setImage(UIImage(systemName: "arrowshape.left.fill"), for: .normal)
-//        button.addTarget(self, action: #selector(previousWeekButton(_:)), for: .touchUpInside)
-//        return button
-//    }()
-//
-//    @objc func nextButton(_ sender: UIButton) {
-//        selectedDate = CalendarHelper().addDays(date: selectedDate, days: 7)
-//        setWeekView()
-//    }
-//
-//    @objc func previousWeekButton(_ sender: UIButton) {
-//        selectedDate = CalendarHelper().addDays(date: selectedDate, days: -7)
-//        setWeekView()
-//    }
-    
     
     func setWeekView() {
         totalDay.removeAll()
@@ -108,16 +81,6 @@ final class DatetableCell: UITableViewCell {
         collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-        
-//        contentView.addSubview(nextButton)
-//        nextButton.translatesAutoresizingMaskIntoConstraints = false
-//        nextButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-//        nextButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-//
-//        contentView.addSubview(previousWeekButton)
-//        previousWeekButton.translatesAutoresizingMaskIntoConstraints = false
-//        previousWeekButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-//        previousWeekButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5).isActive = true
     }
     
     /// 요일 함수
@@ -188,30 +151,6 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
         collectionView.reloadData()
         delegate?.didSelectItemAt()
         print("collection view select")
-//        /// 1번 데이트피커 생성
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "\(selectedDate)"
-//        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-//        let date = dateFormatter.date(from: "\(selectedDate)")
-//        let dateString = dateFormatter.string(from: selectedDate)
-//        /// 2번 데이트
-//        let dateFormatters = DateFormatter()
-//        var a = list.map {
-//            dateFormatters.dateFormat = "yy년 MM월 dd일"
-//            let aa = dateFormatters.string(from: $0.date)
-//
-//            let dateFormatter = DateFormatter()
-////            let dateString = dateFormatter.string(from: lists.date)
-//
-//            if aa == dateString {
-//                DatetableCell().collectionView.reloadData()
-//                ListViewController().tableView.reloadData()
-//            }
-//        }
-//        print("\(dateStrings)3번 table date 스트링 값")
-//        print("\(dateString)2번 collection date 스트링 값")
-//        print("\(selectedDate)셀렉션")
-//        print("\(indexPath)클릭")
     }
 }
 

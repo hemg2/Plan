@@ -197,7 +197,7 @@ extension ListViewController: UITableViewDataSource {
     
 //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 //        switch section {
-////        case 0: return "목표 계획"
+//        case 0: return "목표 계획"
 //        case 0: return "일기 기록"
 //        default: return nil
 //        }
