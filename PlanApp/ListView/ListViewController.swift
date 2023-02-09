@@ -124,24 +124,32 @@ extension ListViewController: ListViewDelegate {
 }
 
 extension ListViewController: DateDelegate {
-    func didSelectItemAt() {
+    func didSelectItemAt(index: Int) {
 //        액션 할것들넣기
+        var basicList = list
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "\(selectedDate)"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-//        let date = dateFormatter.date(from: "\(selectedDate)")
+        let date = dateFormatter.date(from: "\(selectedDate)")
         let dateString = dateFormatter.string(from: selectedDate)
-        
+
         let dateFormatters = DateFormatter()
-        var a = list.map {
-            dateFormatters.dateFormat = "yy년 MM월 dd일"
+        list = basicList.filter { [weak self] in
+            dateFormatters.dateFormat = "yyyy-MM-dd"
             let aa = dateFormatters.string(from: $0.date)
-            let dateFormatter = DateFormatter()
             
-            let view = aa == dateString
+            let dateView = aa == dateString
+            
+            print("\(aa) 리스트 데이트가 스트링 기록한 셀의 날짜가 나옴")
+            print("\(dateView) 2개 같은거?? 펄스 엔 트루?? 아직 트루없음")
+            print("\(dateString) 데이트 스트링변환 변수  오늘 날짜")
+            return true
         }
+        
+        // if aa == dateString 이렇게 같은걸 새로운 변수에 저장하고 뷰 업뎃
+        print("\(index)인덱스 넘겨진건가?")
         tableView.reloadData()
-        print("table view select")
+        print("----------table view select---------------")
         // aa 와 selectedDate 가 같은걸 새로운 변수에 저장하고 뷰 업뎃을한다
     }
 }
@@ -163,8 +171,9 @@ extension ListViewController: UITableViewDataSource {
        
          if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DatetableCell", for: indexPath) as? DatetableCell else { return UITableViewCell() }
-    
+
              cell.delegate = self
+             cell.collectionView.reloadData()
             return cell
         }
         else if indexPath.section == 1 {

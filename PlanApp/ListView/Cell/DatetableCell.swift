@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DateDelegate: AnyObject {
-    func didSelectItemAt()
+    func didSelectItemAt(index: Int)
 }
 
 final class DatetableCell: UITableViewCell {
@@ -149,8 +149,13 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDate = totalDay[indexPath.row]
         collectionView.reloadData()
-        delegate?.didSelectItemAt()
-        print("collection view select")
+        delegate?.didSelectItemAt(index: indexPath.row)
+    
+        
+        print("-----------------collection view select--------------------")
+        print("\(indexPath) collection view indexPath")
+        print("\(selectedDate) collection view selectedDate 내가 선택한 날짜가뜬다")
+        print("-------------------------------------")
     }
 }
 
