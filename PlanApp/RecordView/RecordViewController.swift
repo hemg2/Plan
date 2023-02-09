@@ -197,8 +197,9 @@ extension RecordViewController {
         guard let date = self.listDate else { return }
         let list = ListModel(mainImageData: mainImage.pngData(), title: title, description: description, date: date)
         
+        
+        
         switch self.listEditorMode {
-            
         case .new:
             self.delegate?.didSelctReigster(list: list)
         case let .edit(indexPath, _):

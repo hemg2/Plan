@@ -17,8 +17,9 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         }
     }
     
-    var selectedDate = Date()
-    var totalSquares = [Date]()
+    private var selectedDate = Date()
+    private var totalSquares = [Date]()
+    
     
     var tableView: UITableView = {
         let tableView = UITableView()
@@ -122,6 +123,30 @@ extension ListViewController: ListViewDelegate {
     }
 }
 
+extension ListViewController: DateDelegate {
+    func didSelectItemAt() {
+//        액션 할것들넣기
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "\(selectedDate)"
+        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+//        let date = dateFormatter.date(from: "\(selectedDate)")
+        let dateString = dateFormatter.string(from: selectedDate)
+        
+        let dateFormatters = DateFormatter()
+        var a = list.map {
+            dateFormatters.dateFormat = "yy년 MM월 dd일"
+            let aa = dateFormatters.string(from: $0.date)
+            let dateFormatter = DateFormatter()
+            
+            if aa == dateString {
+                tableView.reloadData()
+            }
+        }
+        print("table view select")
+        // aa 와 selectedDate 가 같은걸 새로운 변수에 저장하고 뷰 업뎃을한다
+    }
+}
+
 
 
 extension ListViewController: UITableViewDataSource {
@@ -164,6 +189,9 @@ extension ListViewController: UITableViewDataSource {
         vc.list = list
         vc.indexPath = indexPath
         
+        
+        let cell = DatetableCell()
+        cell.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

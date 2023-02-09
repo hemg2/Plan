@@ -7,11 +7,16 @@
 
 import UIKit
 
+protocol DateDelegate: AnyObject {
+    func didSelectItemAt()
+}
+
 final class DatetableCell: UITableViewCell {
     
     private let now = Date()
     private var totalDay = [Date]()
     private var selectedDate = Date()
+    weak var delegate: DateDelegate?
     private let list = [ListModel]()
     
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
@@ -180,29 +185,33 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDate = totalDay[indexPath.row]
-        
-//        let lists = self.list[indexPath.row]
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "\(selectedDate)"
-        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        //        let date = dateFormatter.date(from: "\(selectedDate)")
-        let dateString = dateFormatter.string(from: selectedDate)
-        
-        let dateFormatters = DateFormatter()
-        let a: [()] = list.map {
-            dateFormatters.dateFormat = "\($0.date)"
-            dateFormatters.string(from: $0.date)
-        }
-        
-        if dateFormatter == dateFormatters {
-            DatetableCell().collectionView.reloadData()
-            ListViewController().tableView.reloadData()
-        }
-        print("\(a)1번aaa table date 스트링 값")
-        print("\(dateString)2번 collection date 스트링 값")
-        print("\(selectedDate)셀렉션")
-        print("\(indexPath)클릭")
+        collectionView.reloadData()
+        delegate?.didSelectItemAt()
+        print("collection view select")
+//        /// 1번 데이트피커 생성
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "\(selectedDate)"
+//        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
+//        let date = dateFormatter.date(from: "\(selectedDate)")
+//        let dateString = dateFormatter.string(from: selectedDate)
+//        /// 2번 데이트
+//        let dateFormatters = DateFormatter()
+//        var a = list.map {
+//            dateFormatters.dateFormat = "yy년 MM월 dd일"
+//            let aa = dateFormatters.string(from: $0.date)
+//
+//            let dateFormatter = DateFormatter()
+////            let dateString = dateFormatter.string(from: lists.date)
+//
+//            if aa == dateString {
+//                DatetableCell().collectionView.reloadData()
+//                ListViewController().tableView.reloadData()
+//            }
+//        }
+//        print("\(dateStrings)3번 table date 스트링 값")
+//        print("\(dateString)2번 collection date 스트링 값")
+//        print("\(selectedDate)셀렉션")
+//        print("\(indexPath)클릭")
     }
 }
 
