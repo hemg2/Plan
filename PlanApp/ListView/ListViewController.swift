@@ -138,10 +138,9 @@ extension ListViewController: DateDelegate {
             let aa = dateFormatters.string(from: $0.date)
             let dateFormatter = DateFormatter()
             
-            if aa == dateString {
-                tableView.reloadData()
-            }
+            let view = aa == dateString
         }
+        tableView.reloadData()
         print("table view select")
         // aa 와 selectedDate 가 같은걸 새로운 변수에 저장하고 뷰 업뎃을한다
     }
@@ -165,6 +164,7 @@ extension ListViewController: UITableViewDataSource {
          if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DatetableCell", for: indexPath) as? DatetableCell else { return UITableViewCell() }
     
+             cell.delegate = self
             return cell
         }
         else if indexPath.section == 1 {
@@ -189,9 +189,7 @@ extension ListViewController: UITableViewDataSource {
         vc.list = list
         vc.indexPath = indexPath
         
-        
-        let cell = DatetableCell()
-        cell.delegate = self
+       
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
