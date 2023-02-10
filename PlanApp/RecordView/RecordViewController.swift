@@ -77,7 +77,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
         let textField = UITextField()
         textField.frame = CGRect(x: 0, y: 0, width: 400, height: 40)
         textField.layer.borderWidth = 1
-//        textField.layer.shadowColor = CGColor(gray: 0.5, alpha: 1.0)
+        //        textField.layer.shadowColor = CGColor(gray: 0.5, alpha: 1.0)
         textField.layer.borderColor = UIColor.black.cgColor
         textField.borderStyle = .roundedRect
         textField.placeholder = "제목을 입력해주세요."
@@ -101,12 +101,12 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
         return textField
     }()
     
-//    lazy var naviButton: UIBarButtonItem = {
-//        let button = UIBarButtonItem(title:nil, style: .plain, target: self, action: #selector(cameraVC))
-//        button.image = UIImage(systemName: "camera")
-//        button.tintColor = .black
-//        return button
-//    }()
+    //    lazy var naviButton: UIBarButtonItem = {
+    //        let button = UIBarButtonItem(title:nil, style: .plain, target: self, action: #selector(cameraVC))
+    //        button.image = UIImage(systemName: "camera")
+    //        button.tintColor = .black
+    //        return button
+    //    }()
     
     lazy var naviBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title:"추가하기", style: .plain, target: self, action: #selector(add))
@@ -151,7 +151,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     }
     
     @objc private func datePickerValueDidChange(_ datePicker: UIDatePicker) {
-     let formmater = DateFormatter()
+        let formmater = DateFormatter()
         formmater.dateFormat = "yyyy년 MM월 dd일(EEEEE)"
         formmater.locale = Locale(identifier: "ko_KR")
         self.listDate = datePicker.date
@@ -170,7 +170,7 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-   
+    
 }
 
 
@@ -207,7 +207,7 @@ extension RecordViewController {
                 "indexPath.row": indexPath.row])
         }
         self.navigationController?.popViewController(animated: true)
-
+        
     }
     // 사진 저장1
     @objc func savedImage(image: UIImage, didFinishSavingWithError: Error?, error: Error?, contextInfo: UnsafeMutableRawPointer?) {
@@ -228,7 +228,7 @@ extension RecordViewController {
         if let images = info[.originalImage] as? UIImage {
             UIImageWriteToSavedPhotosAlbum(images, self, #selector(savedImage), nil)
         }
-    
+        
         // 동영상 저장 코드 181번까지
         if let url = info[.mediaURL] as? URL, UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) {
             PHPhotoLibrary.shared().performChanges({

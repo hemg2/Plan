@@ -85,7 +85,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         let encodedList = try! JSONEncoder().encode(list)
         userDefaults.set(encodedList, forKey: "data")
     }
-
+    
     private func loadList() {
         let userDefaults = UserDefaults.standard
         guard let data = userDefaults.object(forKey: "data") as? Data else { return }
@@ -125,14 +125,14 @@ extension ListViewController: ListViewDelegate {
 
 extension ListViewController: DateDelegate {
     func didSelectItemAt(index: Int) {
-//        액션 할것들넣기
+        //        액션 할것들넣기
         var basicList = list
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "\(selectedDate)"
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         let date = dateFormatter.date(from: "\(selectedDate)")
         let dateString = dateFormatter.string(from: selectedDate)
-
+        
         let dateFormatters = DateFormatter()
         list = basicList.filter { [weak self] in
             dateFormatters.dateFormat = "yyyy-MM-dd"
@@ -168,12 +168,12 @@ extension ListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-         if indexPath.section == 0 {
+        
+        if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DatetableCell", for: indexPath) as? DatetableCell else { return UITableViewCell() }
-
-             cell.delegate = self
-             cell.collectionView.reloadData()
+            
+            cell.delegate = self
+            cell.collectionView.reloadData()
             return cell
         }
         else if indexPath.section == 1 {
@@ -186,7 +186,7 @@ extension ListViewController: UITableViewDataSource {
                 cell.mainImage.image = UIImage(data: mainImageData)
             }
             cell.timeLabel.text = self.dateToString(date: lists.date)
-//            cell.accessoryType = .disclosureIndicator
+            //            cell.accessoryType = .disclosureIndicator
             return cell
         }
         return UITableViewCell()
@@ -198,23 +198,23 @@ extension ListViewController: UITableViewDataSource {
         vc.list = list
         vc.indexPath = indexPath
         
-       
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        switch section {
-//        case 0: return "목표 계획"
-//        case 0: return "일기 기록"
-//        default: return nil
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        switch section {
+    //        case 0: return "목표 계획"
+    //        case 0: return "일기 기록"
+    //        default: return nil
+    //        }
+    //    }
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-   
+    
     
     
 }

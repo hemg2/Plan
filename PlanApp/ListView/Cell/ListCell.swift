@@ -24,7 +24,7 @@ final class ListCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()
-   
+    
     lazy var timeLabel :UILabel =  {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
@@ -33,7 +33,7 @@ final class ListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-     
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -41,7 +41,7 @@ final class ListCell: UITableViewCell {
         configure()
         layers()
     }
-        
+    
     private func configure() {
         contentView.addSubview(timeLabel)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -53,18 +53,18 @@ final class ListCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo:timeLabel.bottomAnchor, constant: 10).isActive = true
-//        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-//        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
+        //        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        //        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-
-
+        
+        
         contentView.addSubview(descriptionLabel)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 5).isActive = true
         descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
-//        descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
+        //        descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
-
+        
         contentView.addSubview(mainImage)
         mainImage.translatesAutoresizingMaskIntoConstraints = false
         //        mainImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
@@ -76,7 +76,7 @@ final class ListCell: UITableViewCell {
         
     }
     
-   
+    
     ///테두리 색
     func layers() {
         self.contentView.layer.cornerRadius = 3.0

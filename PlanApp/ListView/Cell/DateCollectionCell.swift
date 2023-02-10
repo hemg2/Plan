@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DateCollectionCell: UICollectionViewCell {
+final class DateCollectionCell: UICollectionViewCell {
     
     lazy var weekLabel: UILabel = {
         let label = UILabel()
@@ -43,7 +43,7 @@ class DateCollectionCell: UICollectionViewCell {
         weekLabel.translatesAutoresizingMaskIntoConstraints = false
         weekLabel.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 5).isActive = true
         //        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-//        weekLabel.trailingAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        //        weekLabel.trailingAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         weekLabel.leadingAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         contentView.addSubview(dayLabel)

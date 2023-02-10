@@ -69,7 +69,7 @@ extension RecordDetailViewController {
         dateTextLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
         dateTextLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
     }
-   
     
-   
+    
+    
 }

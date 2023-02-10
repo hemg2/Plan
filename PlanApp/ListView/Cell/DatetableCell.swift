@@ -20,18 +20,18 @@ final class DatetableCell: UITableViewCell {
     private let list = [ListModel]()
     
     private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
-      let layout = UICollectionViewFlowLayout()
-      layout.scrollDirection = .horizontal
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0.5
         layout.minimumInteritemSpacing = 0.5
-      return layout
+        return layout
     }()
     
     lazy var collectionView: UICollectionView = {
-      let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
         
         collectionView.backgroundColor = .systemBackground
-      return collectionView
+        return collectionView
     }()
     
     func setWeekView() {
@@ -91,7 +91,7 @@ final class DatetableCell: UITableViewCell {
         let convertStr = formatter.string(from: date)
         return convertStr
     }
-
+    
     private func dateToString(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yy년 MM월 dd일(EEEEE)"
@@ -110,7 +110,7 @@ extension DatetableCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionCell", for: indexPath) as? DateCollectionCell else { return UICollectionViewCell() }
-       
+        
         
         let date = totalDay[indexPath.row]
         cell.weekLabel.text = String(CalendarHelper().dayOfMonth(date: date))
@@ -119,7 +119,7 @@ extension DatetableCell: UICollectionViewDataSource {
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 1.0
         cell.layer.cornerRadius = 10
-       
+        
         if indexPath.row % 7 == 0 {
             cell.weekLabel.textColor = .red
             cell.dayLabel.textColor = .red
@@ -142,7 +142,7 @@ extension DatetableCell: UICollectionViewDataSource {
 extension DatetableCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: 45, height: 45)
+        return CGSize(width: 45, height: 45)
     }
     
     
@@ -150,7 +150,7 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
         selectedDate = totalDay[indexPath.row]
         collectionView.reloadData()
         delegate?.didSelectItemAt(index: indexPath.row)
-    
+        
         
         print("-----------------collection view select--------------------")
         print("\(indexPath) collection view indexPath")
@@ -162,17 +162,17 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
 
 extension DatetableCell: UICollectionViewDelegate {
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    //        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    //    }
     
     /// 그리드의 항목 줄 사이에 사용할 최소 간격
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5.0
     }
-
+    
     /// 같은 행에 있는 항목 사이에 사용할 최소 간격
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 5.0
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    //        return 5.0
+    //    }
 }

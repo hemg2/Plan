@@ -39,7 +39,7 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
     lazy var imageButton: UIButton = {
         let button = UIButton()
         button.setTitle(nil, for: .normal)
-//        button.addTarget(self, action: #selector(keepPhoto), for: .touchUpInside)
+        //        button.addTarget(self, action: #selector(keepPhoto), for: .touchUpInside)
         return button
     }()
     
