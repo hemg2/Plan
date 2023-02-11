@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DateDelegate: AnyObject {
-    func didSelectItemAt(index: Int)
+    func didSelectItemAt(index: Int, selectedDate: Date)
 }
 
 final class DatetableCell: UITableViewCell {
@@ -31,18 +31,20 @@ final class DatetableCell: UITableViewCell {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewFlowLayout)
         
         collectionView.backgroundColor = .systemBackground
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.contentInset = .init(top: 0, left: 20, bottom: 0, right: 20)
+        collectionView.clipsToBounds = false
         return collectionView
     }()
     
     func setWeekView() {
+        let todayDate = Date()
         totalDay.removeAll()
-        var current = CalendarHelper().sundayForDate(date: now)
-        let nextSunday = CalendarHelper().addDays(date: current, days: 28)
-        //지난 꿈 x
-        while (current < nextSunday)
-        {
-            totalDay.append(current)
-            current = CalendarHelper().addDays(date: current, days: 1)
+        let currentMonthCount = CalendarHelper().daysInMonth(date: todayDate)
+        var startDay = todayDate.startOfMonth()
+        for _ in 1...currentMonthCount {
+            totalDay.append(startDay)
+            startDay = CalendarHelper().addDays(date: startDay, days: 1)
         }
         
         collectionView.reloadData()
@@ -73,6 +75,9 @@ final class DatetableCell: UITableViewCell {
     
     private func configure() {
         contentView.addSubview(collectionView)
+        contentView.clipsToBounds = false
+        clipsToBounds = false
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(DateCollectionCell.self, forCellWithReuseIdentifier: "DateCollectionCell")
@@ -82,24 +87,6 @@ final class DatetableCell: UITableViewCell {
         collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
     }
-    
-    /// 요일 함수
-    private func getDayOfWeek(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEEEE"
-        formatter.locale = Locale(identifier:"ko_KR")
-        let convertStr = formatter.string(from: date)
-        return convertStr
-    }
-    
-    private func dateToString(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yy년 MM월 dd일(EEEEE)"
-        formatter.locale = Locale(identifier: "ko_KR")
-        return formatter.string(from: date)
-    }
-    
-    
 }
 
 
@@ -111,26 +98,8 @@ extension DatetableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DateCollectionCell", for: indexPath) as? DateCollectionCell else { return UICollectionViewCell() }
         
-        
         let date = totalDay[indexPath.row]
-        cell.weekLabel.text = String(CalendarHelper().dayOfMonth(date: date))
-        cell.dayLabel.text = getDayOfWeek(date: date)
-        cell.backgroundColor = .green
-        cell.layer.borderColor = UIColor.black.cgColor
-        cell.layer.borderWidth = 1.0
-        cell.layer.cornerRadius = 10
-        
-        if indexPath.row % 7 == 0 {
-            cell.weekLabel.textColor = .red
-            cell.dayLabel.textColor = .red
-        } else if indexPath.row % 7 == 6 {
-            cell.weekLabel.textColor = .blue
-            cell.dayLabel.textColor = .blue
-        } else {
-            cell.weekLabel.textColor = .black
-            cell.dayLabel.textColor = .black
-        }
-        
+        cell.setData(date: date)
         return cell
     }
     
@@ -149,12 +118,12 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedDate = totalDay[indexPath.row]
         collectionView.reloadData()
-        delegate?.didSelectItemAt(index: indexPath.row)
+        delegate?.didSelectItemAt(index: indexPath.row, selectedDate: selectedDate)
         
         
         print("-----------------collection view select--------------------")
-        print("\(indexPath) collection view indexPath")
-        print("\(selectedDate) collection view selectedDate 내가 선택한 날짜가뜬다")
+//        print("\(indexPath) collection view indexPath")
+//        print("\(selectedDate) collection view selectedDate 내가 선택한 날짜가뜬다")
         print("-------------------------------------")
     }
 }

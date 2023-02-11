@@ -4,6 +4,21 @@ import UIKit
 class CalendarHelper
 {
 	let calendar = Calendar.current
+    
+    static func getDayOfWeek(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEEEE"
+        formatter.locale = Locale(identifier:"ko_KR")
+        let convertStr = formatter.string(from: date)
+        return convertStr
+    }
+    
+    static func dateToString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy년 MM월 dd일(EEEEE)"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter.string(from: date)
+    }
 	
 	func plusMonth(date: Date) -> Date
 	{

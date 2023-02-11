@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		632673BF2997C781002D6AA8 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632673BE2997C781002D6AA8 /* Date+Extension.swift */; };
 		639E0025298E143700D7F8B8 /* DateCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639E0024298E143700D7F8B8 /* DateCollectionCell.swift */; };
 		639E0027298F73F400D7F8B8 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639E0026298F73F400D7F8B8 /* CalendarHelper.swift */; };
 		63AAEB032988E80700E3EF4A /* RecordDetailView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AAEB022988E80700E3EF4A /* RecordDetailView+Layout.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		632673BE2997C781002D6AA8 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		639E0024298E143700D7F8B8 /* DateCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionCell.swift; sourceTree = "<group>"; };
 		639E0026298F73F400D7F8B8 /* CalendarHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		63AAEB022988E80700E3EF4A /* RecordDetailView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordDetailView+Layout.swift"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				63DE0617297E75BB007D885C /* Assets.xcassets */,
 				63DE0619297E75BB007D885C /* LaunchScreen.storyboard */,
 				63DE061C297E75BB007D885C /* Info.plist */,
+				632673BE2997C781002D6AA8 /* Date+Extension.swift */,
 			);
 			path = PlanApp;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			files = (
 				63C0C28B2988E28300335071 /* RecordDetailViewController.swift in Sources */,
 				63DE0613297E75B9007D885C /* ListViewController.swift in Sources */,
+				632673BF2997C781002D6AA8 /* Date+Extension.swift in Sources */,
 				63DE0638298161C9007D885C /* RecordViewController+Layout.swift in Sources */,
 				63DE060F297E75B9007D885C /* AppDelegate.swift in Sources */,
 				63DE0611297E75B9007D885C /* SceneDelegate.swift in Sources */,

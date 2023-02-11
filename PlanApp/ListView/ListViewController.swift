@@ -9,17 +9,20 @@ import UIKit
 
 
 final class ListViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    
-    private var list = [ListModel]()
-    {
+    enum Section: Int, CaseIterable {
+        case month
+        case date
+        case dreamItem
+    }
+    private var list = [ListModel]() {
         didSet {
             saveList()
         }
     }
+    private var filterList: [ListModel] = []
     
     private var selectedDate = Date()
     private var totalSquares = [Date]()
-    
     
     var tableView: UITableView = {
         let tableView = UITableView()
@@ -27,7 +30,6 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.separatorStyle = .none
         return tableView
     }()
-    
     
     lazy var naviRecordButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "추가", style: .plain, target: self, action: #selector(recordVC))
@@ -124,26 +126,24 @@ extension ListViewController: ListViewDelegate {
 }
 
 extension ListViewController: DateDelegate {
-    func didSelectItemAt(index: Int) {
+    func didSelectItemAt(index: Int, selectedDate: Date) {
         //        액션 할것들넣기
-        var basicList = list
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "\(selectedDate)"
-        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        let date = dateFormatter.date(from: "\(selectedDate)")
-        let dateString = dateFormatter.string(from: selectedDate)
-        
         let dateFormatters = DateFormatter()
-        list = basicList.filter { [weak self] in
-            dateFormatters.dateFormat = "yyyy-MM-dd"
-            let aa = dateFormatters.string(from: $0.date)
-            
-            let dateView = aa == dateString
-            
-            print("\(aa) 리스트 데이트가 스트링 기록한 셀의 날짜가 나옴")
-            print("\(dateView) 2개 같은거?? 펄스 엔 트루?? 아직 트루없음")
-            print("\(dateString) 데이트 스트링변환 변수  오늘 날짜")
-            return true
+        dateFormatters.dateFormat = "yyyy-MM-dd"
+        
+//        for item in list {
+//            let aa = dateFormatters.string(from: item.date)
+//            let bb = dateFormatters.string(from: selectedDate)
+//
+//            if aa == bb {
+//                filterList.append(item)
+//            }
+//        }
+        
+        filterList = list.filter {
+            let itemDateString = dateFormatters.string(from: $0.date)
+            let selectedDateString = dateFormatters.string(from: selectedDate)
+            return itemDateString == selectedDateString
         }
         
         // if aa == dateString 이렇게 같은걸 새로운 변수에 저장하고 뷰 업뎃
@@ -157,29 +157,39 @@ extension ListViewController: DateDelegate {
 
 
 extension ListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        Section.allCases.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            1
+        guard let section = Section(rawValue: section) else { return 0 }
+        
+        switch section {
+        case .month:
+            return 1
+        case .date:
+            return 1
+        case .dreamItem:
+            return filterList.count
         }
-        else if section == 1 {
-            return list.count
-        }
-        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let section = Section(rawValue: indexPath.section) else { return .init() }
         
-        if indexPath.section == 0 {
+        switch section {
+        case .month:
+            return .init()
+        case .date:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DatetableCell", for: indexPath) as? DatetableCell else { return UITableViewCell() }
             
             cell.delegate = self
             cell.collectionView.reloadData()
             return cell
-        }
-        else if indexPath.section == 1 {
+        case .dreamItem:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as? ListCell else { return UITableViewCell() }
             
-            let lists = self.list[indexPath.row]
+            let lists = self.filterList[indexPath.row]
             cell.titleLabel.text = lists.title
             cell.descriptionLabel.text = lists.description
             if let mainImageData = lists.mainImageData {
@@ -189,17 +199,53 @@ extension ListViewController: UITableViewDataSource {
             //            cell.accessoryType = .disclosureIndicator
             return cell
         }
-        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let section = Section(rawValue: section) else { return nil }
+        
+        switch section {
+        case .month:
+            return nil
+        case .date:
+            let view = UIView()
+            view.backgroundColor = .systemBackground
+            return view
+        case .dreamItem:
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let section = Section(rawValue: section) else { return 0 }
+        
+        switch section {
+        case .month:
+            return 0
+        case .date:
+            return 20
+        case .dreamItem:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = RecordDetailViewController()
-        let list = self.list[indexPath.row]
-        vc.list = list
-        vc.indexPath = indexPath
+        guard let section = Section(rawValue: indexPath.section) else { return }
         
+        switch section {
+        case .month:
+            break
+        case .date:
+            break
+        case .dreamItem:
+            let vc = RecordDetailViewController()
+            let list = self.filterList[indexPath.row]
+            vc.list = list
+            vc.indexPath = indexPath
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
-        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -209,27 +255,17 @@ extension ListViewController: UITableViewDataSource {
     //        default: return nil
     //        }
     //    }
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-    
-    
-    
 }
 
 extension ListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let actions1 = UIContextualAction(style: .normal, title: "삭제", handler: { [weak self] action, view, completionHaldler in completionHaldler(true)
-            self?.list.remove(at: indexPath.row)
-            tableView.reloadData()
-        })
-        actions1.backgroundColor = .systemRed
-        
-        return UISwipeActionsConfiguration(actions: [actions1])
-    }
-    
-    
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let actions1 = UIContextualAction(style: .normal, title: "삭제", handler: { [weak self] action, view, completionHaldler in completionHaldler(true)
+//            self?.list.remove(at: indexPath.row)
+//            tableView.reloadData()
+//        })
+//        actions1.backgroundColor = .systemRed
+//
+//        return UISwipeActionsConfiguration(actions: [actions1])
+//    }
 }
 
