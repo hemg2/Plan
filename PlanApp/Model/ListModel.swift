@@ -22,8 +22,3 @@ struct DateModel {
 }
 
 
-
-enum Dream: Equatable {
-    case list
-    case date
-}

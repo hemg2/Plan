@@ -245,7 +245,6 @@ extension ListViewController: UITableViewDataSource {
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
     }
     
     //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
