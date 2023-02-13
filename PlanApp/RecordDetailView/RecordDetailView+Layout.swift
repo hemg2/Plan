@@ -12,7 +12,7 @@ extension RecordDetailViewController {
     func navigations() {
         view.backgroundColor = .systemBackground
         title = "기록하기"
-        self.navigationItem.rightBarButtonItem = naviBarButton
+        self.navigationItem.rightBarButtonItems = [naviBarButton, naviBarDeleteButton]
     }
     
     func imageViews() {

@@ -45,13 +45,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         loadList()
         NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("List"), object: nil)
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-    
+        
     private func navigationItem() {
         view.backgroundColor = .systemBackground
 //        title = CalendarHelper().yearString(date: selectedDate) + " " + CalendarHelper().monthString(date: selectedDate)
@@ -115,7 +109,17 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         self.tableView.reloadData()
     }
 }
-
+/// 리스트모델 삭제 델리겟
+extension ListViewController: DeleteDelegate {
+    func didSelectDelete(indexPath: IndexPath) {
+        self.filterList.remove(at: indexPath.row)
+        self.list.remove(at: indexPath.row)
+        self.tableView.deleteRows(at: [indexPath], with: .fade)
+    }
+    
+    
+}
+/// 리스트 모델 추가 델리겟
 extension ListViewController: ListViewDelegate {
     func didSelctReigster(list: ListModel) {
         self.list.append(list)
@@ -125,7 +129,7 @@ extension ListViewController: ListViewDelegate {
         self.tableView.reloadData()
     }
 }
-
+/// 리스트 모델 날짜 표시 델리겟
 extension ListViewController: DateDelegate {
     func didSelectItemAt(index: Int, selectedDate: Date) {
         //        액션 할것들넣기
@@ -245,7 +249,7 @@ extension ListViewController: UITableViewDataSource {
             let list = self.filterList[indexPath.row]
             vc.list = list
             vc.indexPath = indexPath
-            
+            vc.delegate = self
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -260,6 +264,16 @@ extension ListViewController: UITableViewDataSource {
 }
 
 extension ListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            
+            if editingStyle == .delete {
+                self.list.remove(at: indexPath.row)
+                self.filterList.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            } else if editingStyle == .insert {
+                
+            }
+        }
 //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 //        let actions1 = UIContextualAction(style: .normal, title: "삭제", handler: { [weak self] action, view, completionHaldler in completionHaldler(true)
 //            self?.list.remove(at: indexPath.row)

@@ -13,11 +13,16 @@ enum ListEditorMode {
     case edit(IndexPath, ListModel)
 }
 
+protocol DeleteDelegate: AnyObject {
+    func didSelectDelete(indexPath: IndexPath)
+}
+
 
 final class RecordDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var list: ListModel?
     var indexPath: IndexPath?
+    weak var delegate: DeleteDelegate?
     
     private let imagePickerController = UIImagePickerController()
     private let datePicker = UIDatePicker()
@@ -92,6 +97,12 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
         return button
     }()
     
+    lazy var naviBarDeleteButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title:"삭제하기", style: .plain, target: self, action: #selector(deleteAction))
+        button.tintColor = .red
+        return button
+    }()
+    
     @objc private func change() {
         let vc = RecordViewController()
         guard let indexPath = self.indexPath else { return }
@@ -99,6 +110,12 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
         vc.listEditorMode = .edit(indexPath, list)
         NotificationCenter.default.addObserver(self, selector: #selector(editDiaryNotification(_:)), name: NSNotification.Name("List"), object: nil)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func deleteAction() {
+        guard let indexPath = self.indexPath else { return }
+        self.delegate?.didSelectDelete(indexPath: indexPath)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func editDiaryNotification(_ notification: Notification) {
