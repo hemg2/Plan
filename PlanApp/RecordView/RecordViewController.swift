@@ -36,21 +36,21 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
     
     lazy var imageButton: UIButton = {
         let button = UIButton()
-        button.setTitle("사진추가", for: .normal)
+        button.setTitle("사진추가하기", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.addTarget(self, action: #selector(keepPhoto), for: .touchUpInside)
         return button
     }()
     
-    lazy var imagePickerButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("사진촬영", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.setImage(UIImage(systemName: "camera"), for: .normal)
-        button.addTarget(self, action: #selector(cameraVC), for: .touchUpInside)
-        return button
-    }()
+//    lazy var imagePickerButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle("사진촬영", for: .normal)
+//        button.setTitleColor(.black, for: .normal)
+//        button.setImage(UIImage(systemName: "camera"), for: .normal)
+//        button.addTarget(self, action: #selector(cameraVC), for: .touchUpInside)
+//        return button
+//    }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -175,19 +175,42 @@ final class RecordViewController: UIViewController, UIImagePickerControllerDeleg
 
 
 extension RecordViewController {
-    @objc func cameraVC(_ sender: UIBarButtonItem) {  //사진
-        let camera = UIImagePickerController()
-        camera.delegate = self
-        camera.sourceType = .camera
-        camera.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
-        camera.allowsEditing = false
-        self.present(camera, animated: true)
-    }
+//    @objc func cameraVC(_ sender: UIBarButtonItem) {  //사진
+//        let camera = UIImagePickerController()
+//        camera.delegate = self
+//        camera.sourceType = .camera
+//        camera.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+//        camera.allowsEditing = false
+//        self.present(camera, animated: true)
+//    }
     
     // 사진첩
     @objc private func keepPhoto() {
-        imagePickerController.sourceType = .photoLibrary
-        self.present(imagePickerController, animated: true)
+        let alert = UIAlertController(title: "알림", message: "선택해주세요", preferredStyle: UIAlertController.Style.alert)
+        
+        let selrect = UIAlertAction(title: "사진촬영", style: UIAlertAction.Style.default) { (_) in
+            let camera = UIImagePickerController()
+            camera.delegate = self
+            camera.sourceType = .camera
+            camera.mediaTypes = UIImagePickerController.availableMediaTypes(for: .camera) ?? []
+            camera.allowsEditing = false
+            self.present(camera, animated: true)
+        }
+
+        let pictrue = UIAlertAction(title: "사진선택", style: UIAlertAction.Style.destructive) { (_) in
+            self.imagePickerController.sourceType = .photoLibrary
+            self.present(self.imagePickerController, animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "cancel", style: UIAlertAction.Style.cancel, handler: nil)
+        
+        
+        alert.addAction(selrect)
+        alert.addAction(pictrue)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: false)
+        //        imagePickerController.sourceType = .photoLibrary
+        //        self.present(imagePickerController, animated: true)
     }
     //추가하기
     @objc private func add() {

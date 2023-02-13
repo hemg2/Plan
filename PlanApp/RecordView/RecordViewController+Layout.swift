@@ -39,10 +39,10 @@ extension RecordViewController {
         imageButton.leadingAnchor.constraint(equalTo: imageLabel.trailingAnchor, constant:  10).isActive = true
         
         
-        view.addSubview(imagePickerButton)
-        imagePickerButton.translatesAutoresizingMaskIntoConstraints = false
-        imagePickerButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 28).isActive = true
-        imagePickerButton.leadingAnchor.constraint(equalTo: imageButton.trailingAnchor, constant:  10).isActive = true
+//        view.addSubview(imagePickerButton)
+//        imagePickerButton.translatesAutoresizingMaskIntoConstraints = false
+//        imagePickerButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 28).isActive = true
+//        imagePickerButton.leadingAnchor.constraint(equalTo: imageButton.trailingAnchor, constant:  10).isActive = true
         
     }
     
