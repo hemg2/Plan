@@ -54,7 +54,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
     
     private func navigationItem() {
         view.backgroundColor = .systemBackground
-        title = CalendarHelper().yearString(date: selectedDate) + " " + CalendarHelper().monthString(date: selectedDate)
+//        title = CalendarHelper().yearString(date: selectedDate) + " " + CalendarHelper().monthString(date: selectedDate)
         self.navigationItem.rightBarButtonItem = naviRecordButton
     }
     
@@ -63,6 +63,7 @@ final class ListViewController: UIViewController, UIImagePickerControllerDelegat
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ListCell.self, forCellReuseIdentifier: "ListCell")
         tableView.register(DatetableCell.self, forCellReuseIdentifier: "DatetableCell")
+        tableView.register(MonthCell.self, forCellReuseIdentifier: "MonthCell")
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
@@ -145,11 +146,10 @@ extension ListViewController: DateDelegate {
             let selectedDateString = dateFormatters.string(from: selectedDate)
             return itemDateString == selectedDateString
         }
-        
-        // if aa == dateString 이렇게 같은걸 새로운 변수에 저장하고 뷰 업뎃
-        print("\(index)인덱스 넘겨진건가?")
         tableView.reloadData()
-        print("----------table view select---------------")
+        // if aa == dateString 이렇게 같은걸 새로운 변수에 저장하고 뷰 업뎃
+//        print("\(index)인덱스 넘겨진건가?")
+//        print("----------table view select---------------")
         // aa 와 selectedDate 가 같은걸 새로운 변수에 저장하고 뷰 업뎃을한다
     }
 }
@@ -179,7 +179,10 @@ extension ListViewController: UITableViewDataSource {
         
         switch section {
         case .month:
-            return .init()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MonthCell", for: indexPath) as? MonthCell else { return UITableViewCell() }
+            cell.titleLabel.text = CalendarHelper().yearString(date: selectedDate) + " " + CalendarHelper().monthString(date: selectedDate)
+            
+            return cell
         case .date:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "DatetableCell", for: indexPath) as? DatetableCell else { return UITableViewCell() }
             

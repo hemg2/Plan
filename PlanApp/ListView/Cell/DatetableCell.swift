@@ -102,9 +102,6 @@ extension DatetableCell: UICollectionViewDataSource {
         cell.setData(date: date)
         return cell
     }
-    
-    
-    
 }
 
 
@@ -119,12 +116,10 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
         selectedDate = totalDay[indexPath.row]
         collectionView.reloadData()
         delegate?.didSelectItemAt(index: indexPath.row, selectedDate: selectedDate)
-        
-        
-        print("-----------------collection view select--------------------")
+//        print("-----------------collection view select--------------------")
 //        print("\(indexPath) collection view indexPath")
 //        print("\(selectedDate) collection view selectedDate 내가 선택한 날짜가뜬다")
-        print("-------------------------------------")
+//        print("-------------------------------------")
     }
 }
 
