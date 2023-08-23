@@ -46,15 +46,11 @@ final class ListCell: UITableViewCell {
         contentView.addSubview(timeLabel)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         timeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        //        timeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        //        timeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -10).isActive = true
         timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         
         contentView.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.topAnchor.constraint(equalTo:timeLabel.bottomAnchor, constant: 10).isActive = true
-        //        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        //        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         
         
@@ -62,27 +58,19 @@ final class ListCell: UITableViewCell {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 5).isActive = true
         descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
-        //        descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         
         contentView.addSubview(mainImage)
         mainImage.translatesAutoresizingMaskIntoConstraints = false
-        //        mainImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         mainImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
         mainImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5).isActive = true
-        //        mainImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         mainImage.heightAnchor.constraint(equalToConstant: 80).isActive = true
         mainImage.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        
     }
     
-    
-    ///테두리 색
-    func layers() {
+    private func layers() {
         self.contentView.layer.cornerRadius = 3.0
         self.contentView.layer.borderWidth = 0.3
         self.contentView.layer.borderColor = UIColor.gray.cgColor
     }
-    
-    
 }

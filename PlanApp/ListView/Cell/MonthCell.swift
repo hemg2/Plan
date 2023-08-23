@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 final class MonthCell: UITableViewCell {
     
     var selectedDate = Date()
@@ -37,7 +36,7 @@ final class MonthCell: UITableViewCell {
     }()
     
     @objc private func nextWeek() {
-        selectedDate = CalendarHelper().addDays(date: selectedDate, days: 7) // 실패
+        selectedDate = CalendarHelper().addDays(date: selectedDate, days: 7)
     }
     
     @objc private func agoWeek() {
@@ -71,5 +70,4 @@ final class MonthCell: UITableViewCell {
         nextButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         nextButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 10).isActive = true
     }
-    
 }

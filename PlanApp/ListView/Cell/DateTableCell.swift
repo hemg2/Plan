@@ -1,5 +1,5 @@
 //
-//  TargetCell.swift
+//  DateTableCell.swift
 //  PlanApp
 //
 //  Created by 1 on 2023/01/30.
@@ -11,7 +11,7 @@ protocol DateDelegate: AnyObject {
     func didSelectItemAt(index: Int, selectedDate: Date)
 }
 
-final class DatetableCell: UITableViewCell {
+final class DateTableCell: UITableViewCell {
     
     private let now = Date()
     private var totalDay = [Date]()
@@ -50,12 +50,12 @@ final class DatetableCell: UITableViewCell {
         collectionView.reloadData()
     }
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         configure()
         setWeekView()
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         configure()
@@ -89,8 +89,7 @@ final class DatetableCell: UITableViewCell {
     }
 }
 
-
-extension DatetableCell: UICollectionViewDataSource {
+extension DateTableCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return totalDay.count
     }
@@ -104,8 +103,7 @@ extension DatetableCell: UICollectionViewDataSource {
     }
 }
 
-
-extension DatetableCell: UICollectionViewDelegateFlowLayout {
+extension DateTableCell: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 45, height: 45)
@@ -116,27 +114,11 @@ extension DatetableCell: UICollectionViewDelegateFlowLayout {
         selectedDate = totalDay[indexPath.row]
         collectionView.reloadData()
         delegate?.didSelectItemAt(index: indexPath.row, selectedDate: selectedDate)
-//        print("-----------------collection view select--------------------")
-//        print("\(indexPath) collection view indexPath")
-//        print("\(selectedDate) collection view selectedDate 내가 선택한 날짜가뜬다")
-//        print("-------------------------------------")
     }
 }
 
-
-extension DatetableCell: UICollectionViewDelegate {
-    
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-    //        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    //    }
-    
-    /// 그리드의 항목 줄 사이에 사용할 최소 간격
+extension DateTableCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 5.0
     }
-    
-    /// 같은 행에 있는 항목 사이에 사용할 최소 간격
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    //        return 5.0
-    //    }
 }

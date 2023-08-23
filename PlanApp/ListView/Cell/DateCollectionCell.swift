@@ -44,22 +44,15 @@ final class DateCollectionCell: UICollectionViewCell {
         layer.shadowOpacity = 1
         
         contentView.addSubview(weekLabel)
-        //        [titleLabel, subTitleLabel].forEach {
-        //            contentView.addSubview($0)
-        //        }
         weekLabel.translatesAutoresizingMaskIntoConstraints = false
         weekLabel.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 5).isActive = true
-        //        titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        //        weekLabel.trailingAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         weekLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         
         contentView.addSubview(dayLabel)
         dayLabel.translatesAutoresizingMaskIntoConstraints = false
         dayLabel.topAnchor.constraint(equalTo:weekLabel.bottomAnchor, constant: 5).isActive = true
         dayLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
-        //        subTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant:  -5).isActive = true
         dayLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        
     }
     
     func setData(date: Date) {

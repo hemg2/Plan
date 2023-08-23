@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 extension RecordViewController {
     func navigations() {
         view.backgroundColor = .systemBackground
@@ -29,21 +28,9 @@ extension RecordViewController {
         imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
         view.addSubview(imageButton)
-        //        imageButton.translatesAutoresizingMaskIntoConstraints = false
-        //        imageButton.topAnchor.constraint(equalTo: imageView.topAnchor).isActive = true
-        //        imageButton.leadingAnchor.constraint(equalTo: imageView.leadingAnchor).isActive = true
-        //        imageButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        //        imageButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         imageButton.translatesAutoresizingMaskIntoConstraints = false
         imageButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 28).isActive = true
         imageButton.leadingAnchor.constraint(equalTo: imageLabel.trailingAnchor, constant:  10).isActive = true
-        
-        
-//        view.addSubview(imagePickerButton)
-//        imagePickerButton.translatesAutoresizingMaskIntoConstraints = false
-//        imagePickerButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 28).isActive = true
-//        imagePickerButton.leadingAnchor.constraint(equalTo: imageButton.trailingAnchor, constant:  10).isActive = true
-        
     }
     
     func layout() {
@@ -79,7 +66,4 @@ extension RecordViewController {
         dateTextField.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10).isActive = true
         dateTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
     }
-    
-    
-    
 }

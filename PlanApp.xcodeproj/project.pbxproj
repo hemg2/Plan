@@ -12,7 +12,7 @@
 		639E0025298E143700D7F8B8 /* DateCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639E0024298E143700D7F8B8 /* DateCollectionCell.swift */; };
 		639E0027298F73F400D7F8B8 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639E0026298F73F400D7F8B8 /* CalendarHelper.swift */; };
 		63AAEB032988E80700E3EF4A /* RecordDetailView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AAEB022988E80700E3EF4A /* RecordDetailView+Layout.swift */; };
-		63C0C2882987845400335071 /* DatetableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2872987845400335071 /* DatetableCell.swift */; };
+		63C0C2882987845400335071 /* DateTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C2872987845400335071 /* DateTableCell.swift */; };
 		63C0C28B2988E28300335071 /* RecordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0C28A2988E28300335071 /* RecordDetailViewController.swift */; };
 		63DE060F297E75B9007D885C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE060E297E75B9007D885C /* AppDelegate.swift */; };
 		63DE0611297E75B9007D885C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DE0610297E75B9007D885C /* SceneDelegate.swift */; };
@@ -31,7 +31,7 @@
 		639E0024298E143700D7F8B8 /* DateCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionCell.swift; sourceTree = "<group>"; };
 		639E0026298F73F400D7F8B8 /* CalendarHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		63AAEB022988E80700E3EF4A /* RecordDetailView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordDetailView+Layout.swift"; sourceTree = "<group>"; };
-		63C0C2872987845400335071 /* DatetableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatetableCell.swift; sourceTree = "<group>"; };
+		63C0C2872987845400335071 /* DateTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTableCell.swift; sourceTree = "<group>"; };
 		63C0C28A2988E28300335071 /* RecordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailViewController.swift; sourceTree = "<group>"; };
 		63DE060B297E75B9007D885C /* PlanApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlanApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DE060E297E75B9007D885C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 			children = (
 				632673C02999141A002D6AA8 /* MonthCell.swift */,
 				63DE0627297FB657007D885C /* ListCell.swift */,
-				63C0C2872987845400335071 /* DatetableCell.swift */,
+				63C0C2872987845400335071 /* DateTableCell.swift */,
 				639E0024298E143700D7F8B8 /* DateCollectionCell.swift */,
 			);
 			path = Cell;
@@ -219,7 +219,7 @@
 				63AAEB032988E80700E3EF4A /* RecordDetailView+Layout.swift in Sources */,
 				63DE0624297FB1CB007D885C /* ListModel.swift in Sources */,
 				639E0025298E143700D7F8B8 /* DateCollectionCell.swift in Sources */,
-				63C0C2882987845400335071 /* DatetableCell.swift in Sources */,
+				63C0C2882987845400335071 /* DateTableCell.swift in Sources */,
 				63DE0628297FB657007D885C /* ListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

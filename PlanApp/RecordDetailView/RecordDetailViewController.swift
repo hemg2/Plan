@@ -17,7 +17,6 @@ protocol DeleteDelegate: AnyObject {
     func didSelectDelete(indexPath: IndexPath)
 }
 
-
 final class RecordDetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var list: ListModel?
@@ -44,7 +43,6 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
     lazy var imageButton: UIButton = {
         let button = UIButton()
         button.setTitle(nil, for: .normal)
-        //        button.addTarget(self, action: #selector(keepPhoto), for: .touchUpInside)
         return button
     }()
     
@@ -83,7 +81,6 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
         return descriptionTextLabel
     }()
     
-    
     lazy var dateTextLabel: UILabel = {
         let dateTextLabel = UILabel()
         dateTextLabel.font = UIFont.systemFont(ofSize: 15)
@@ -120,7 +117,6 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
     
     @objc func editDiaryNotification(_ notification: Notification) {
         guard let list = notification.object as? ListModel else { return }
-        guard let row = notification.userInfo?["indexPath.row"] as? Int else  { return }
         self.list = list
         self.configureView()
     }
@@ -155,5 +151,4 @@ final class RecordDetailViewController: UIViewController, UIImagePickerControlle
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
 }

@@ -5,8 +5,7 @@
 //  Created by 1 on 2023/01/24.
 //
 
-import UIKit
-
+import Foundation
 
 struct ListModel: Codable {
     let mainImageData: Data?
@@ -15,10 +14,7 @@ struct ListModel: Codable {
     let date: Date
 }
 
-
 struct DateModel {
     let title: String
     let description: String
 }
-
-
